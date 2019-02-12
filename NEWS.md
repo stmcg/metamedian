@@ -1,6 +1,14 @@
 Package Updates
 ---------------
 
+### Changes in Version 0.1.3 (TBD)
+
+-   Begun using Git as a version-control system and hosting repository
+    on GitHub (<https://github.com/stmcg/metamedian>)
+-   Added URL and BugReport webpage to the DESCRIPTION file
+-   Removed export of `get.scenario()`, as we do not anticipate users
+    applying this function
+
 ### Changes in Version 0.1.2 (2019-02-10)
 
 -   Deprecated `qe.fit()` and `print.qe.fit()` functions. These
@@ -11,7 +19,6 @@ Package Updates
 
 -   Updated DESCRIPTION file
 -   Updated references
--   Exported `get.scenario()` function
 -   Added NEWS.md file to track changes
 
 ### Changes in Version 0.1.0 (2018-10-06)
