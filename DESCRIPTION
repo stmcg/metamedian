@@ -1,7 +1,7 @@
 Package: metamedian
 Type: Package
 Title: Meta-Analysis of Medians
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(person("Sean", "McGrath", role = c("aut", "cre"), 
                      email = "sean.mcgrath@mail.mcgill.ca",
                      comment = c(ORCID = "0000-0002-7281-3516")),
@@ -13,12 +13,12 @@ Authors@R: c(person("Sean", "McGrath", role = c("aut", "cre"),
                       email = "andrea.benedetti@mcgill.ca",
                       comment = c(ORCID = "0000-0002-8314-9497")))
 Maintainer: Sean McGrath <sean.mcgrath@mail.mcgill.ca>
-Description: Implements several methods to meta-analyze one-group or two-group 
-    studies that report the median of the outcome. In the one-group context,
-    the methods of McGrath et al. (2018a) <doi:10.1002/sim.8013> estimate 
-    the pooled median. In the two-group context, the methods of McGrath et al. 
-    (2018b) <arXiv:1809.01278> estimate the pooled raw difference of medians 
-    across groups.
+Description: Implements several methods to meta-analyze studies that report the 
+    sample median of the outcome. When the primary studies are one-group 
+    studies, the methods of McGrath et al. (2018a) <doi:10.1002/sim.8013> can 
+    be applied to estimate the pooled median. In the two-group context, the 
+    methods of McGrath et al. (2018b) <arXiv:1809.01278> can be applied to 
+    estimate the pooled raw difference of medians across groups.
 Imports:
     estmeansd,
     Hmisc,

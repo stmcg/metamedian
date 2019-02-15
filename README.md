@@ -3,8 +3,7 @@
 
 # metamedian: Meta-Analysis of Medians
 
-[![Build
-Status](https://travis-ci.org/stmcg/metamedian.svg?branch=master)](https://travis-ci.org/stmcg/metamedian)
+[![Build\_Status](https://travis-ci.org/stmcg/metamedian.svg?branch=master)](https://travis-ci.org/stmcg/metamedian)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/metamedian)](https://cran.r-project.org/package=metamedian)
 [![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 [![CRAN\_Download\_Badge\_All](https://cranlogs.r-pkg.org/badges/grand-total/metamedian)](https://www.r-pkg.org/pkg/metamedian)
