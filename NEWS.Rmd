@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 *  Begun using Git as a version-control system and hosting repository on GitHub
    (https://github.com/stmcg/metamedian)
 *  Added URL and BugReport webpage to the DESCRIPTION file
+*  Added README.md file
 *  Removed export of `get.scenario()`, as we do not anticipate users applying 
    this function
 
