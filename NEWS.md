@@ -4,7 +4,9 @@ Package Updates
 ### Changes in Version 0.1.3 (TBD)
 
 -   Begun using Git as a version-control system and hosting repository
-    on GitHub (<https://github.com/stmcg/metamedian>)
+    on GitHub (<https://github.com/stmcg/metamedian>) for the
+    development version of the package
+-   Fixed an issue with `qe()` throwing errors
 -   Added URL and BugReport webpage to the DESCRIPTION file
 -   Added README.md file
 -   Removed export of `get.scenario()`, as we do not anticipate users

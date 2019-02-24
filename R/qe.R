@@ -94,16 +94,17 @@
 qe <- function(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1,
                min.g2, q1.g2, med.g2, q3.g2, max.g2, n.g2, mean.g2, sd.g2,
                single.family = FALSE, loc.shift = FALSE, ...) {
-  data.args.names <- names(formals(qe))
-  data.args.names <- data.args.names[!(data.args.names %in%
-                                         c("single.family", "loc.shift",
-                                           "..."))]
-  args.spec <- as.list(match.call())[-1]
-  data.args.spec.names <- names(args.spec)[names(args.spec) %in%
-                                             data.args.names]
-  data.args.spec <- args.spec[data.args.spec.names]
-  data.args.unspec.names <- data.args.names[which(!(data.args.names %in%
-                                                      data.args.spec.names))]
+  all.data.args.names <- c("min.g1", "q1.g1", "med.g1", "q3.g1", "max.g1",
+                           "n.g1", "mean.g1", "sd.g1", "min.g2", "q1.g2",
+                           "med.g2", "q3.g2", "max.g2", "n.g2", "mean.g2",
+                           "sd.g2")
+
+  all.args <- as.list(environment())
+  data.args <- all.args[names(all.args) %in% all.data.args.names]
+  data.args.spec <- data.args[sapply(data.args,
+                                     function(x) class(x) == "numeric")]
+  data.args.unspec.names <- all.data.args.names[!(all.data.args.names
+                                                  %in% names(data.args.spec))]
 
   if (length(unique(lengths(data.args.spec))) != 1) {
     stop("All vectors of summary data must have same length")
