@@ -21,12 +21,12 @@ A list with components
 \item{cov.level}{Theoretical coverage of the confidence interval around the pooled estimate. When \code{norm.approx} is set to \code{TRUE}, the theoretical coverage is 95\%. When \code{norm.approx} is set to \code{FALSE}, the theoretical coverage is set to the smallest possible value greater than 95\%.}
 }
 \description{
-This function meta-analyzes the study-specific effect sizes by applying the (weighted) median of medians method (McGrath et al., 2018a) in one-sample contexts and the (weighted) median of the difference of median method (McGrath et al., 2018b) in two-sample contexts.
+This function meta-analyzes the study-specific effect sizes by applying the (weighted) median of medians method (McGrath et al., 2019) in one-sample contexts and the (weighted) median of the difference of median method (McGrath et al., 2018) in two-sample contexts.
 }
 \details{
-For one-group studies, authors may report the sample median or mean. If these measures are supplied for \code{yi} and weights are not provided for \code{wi}, the function implements the median of medians (MM) method (McGrath et al., 2018a).
+For one-group studies, authors may report the sample median or mean. If these measures are supplied for \code{yi} and weights are not provided for \code{wi}, the function implements the median of medians (MM) method (McGrath et al., 2019).
 
-For two-group studies, authors may report the difference of medians or the difference of means across both groups. If these measures are supplied for \code{yi} and weights are not provided for \code{wi}, the function implements the median of the difference of medians (MDM) method (McGrath et al., 2018b).
+For two-group studies, authors may report the difference of medians or the difference of means across both groups. If these measures are supplied for \code{yi} and weights are not provided for \code{wi}, the function implements the median of the difference of medians (MDM) method (McGrath et al., 2018).
 
 Analogous weighted versions of the MM and MDM methods can be applied when study-specific sample sizes are provided for \code{wi}.
 
@@ -41,7 +41,7 @@ pool.med(yi)
 
 }
 \references{
-McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2018). One-sample aggregate data meta-analysis of medians. \emph{Statistics in Medicine}. 1–16.
+McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2019). One-sample aggregate data meta-analysis of medians. \emph{Statistics in Medicine}, \strong{38}, 969-984.
 
 McGrath S., Sohn H., Steele R., and Benedetti A. (2018). Two-sample aggregate data meta-analysis of medians. \emph{ArXiv e-prints}. \url{https://arxiv.org/abs/1809.01278}.
 }

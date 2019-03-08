@@ -1,7 +1,7 @@
 Package Updates
 ---------------
 
-### Changes in Version 0.1.3 (TBD)
+### Changes in Version 0.1.3 (2019-03-08)
 
 -   Begun using Git as a version-control system and hosting repository
     on GitHub (<https://github.com/stmcg/metamedian>) for the
