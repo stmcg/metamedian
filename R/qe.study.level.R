@@ -7,11 +7,13 @@
 #' \item S4: mean, standard deivation, and sample size.
 #'  }.
 #'
-#' In order to estimate the asymptotic sampling variance of the median, one must have an estimate of the probability density function of the outcome evaluated at the population median. When a study provides summary measures of S1, S2, or S3, the \code{\link{qe.fit}} function is applied to estimate the outcome distribution. When a study provides S4 summary measures, the outcome distribution is assumed to be normal and the parameters are fit by maximum likelihood estimation.
+#' In order to estimate the asymptotic sampling variance of the median (in S1, S2, or S3), one must have an estimate of the probability density function of the outcome evaluated at the population median. The \code{\link{qe.fit}} function is applied to estimate the outcome distribution.
 #'
 #' For two-group studies studies, one may assume that the outcome in both groups follows the same parametric family of distributions. In this case, distribution selection for the QE method is applied as follows. The \code{\link{qe.fit}} function is applied to fit the candidate distributions of each group separately. However, for each candidate distribution, the objective function evaluated at the fitting parameters are summed over the two groups. The parametric family of distributions with the smallest sum is used as the underlying distribution of the both groups. If \code{single.family} is \code{TRUE}, then \code{selected.dist} is a character string indicating the selected parametric family. If \code{single.family} is \code{FALSE}, then \code{selected.dist} is a vector of length 2 where elements 1 and 2 are character strings of the selected parametric families in groups 1 and 2, respectively.
 #'
 #' One may also assume for two-group studies that the outcome distributions in the two groups only differ by a location shfit. In this case, a weighted mean (weighted by sample size) of the estimated probability density functions evaluated at the population medians is used to estimate the asymptotic sampling variance of the difference of medians. See McGrath et al. (2018) for further details.
+#'
+#' When a study provides S4 summary measures, the outcome distribution is assumed to be normal. The sample median is estimated by the sample mean, and its variance is estimated by the sample variance divided by the sample size. In this case, the \code{single.family} and \code{loc.shift} arguments are not used.
 #'
 #' @param min.g1 numeric value giving the sample minimum (first group for two-group studies).
 #' @param q1.g1 numeric value giving the first quartile (first group for two-group studies).
@@ -81,50 +83,61 @@ qe.study.level <- function(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1,
       stop("Need to specify n.g2")
     }
   }
-  fit.g1 <- qe.group.level(min.val = min.g1, q1.val = q1.g1, med.val = med.g1,
-                           q3.val = q3.g1, max.val = max.g1, n = n.g1,
-                           mean.val = mean.g1, sd.val = sd.g1,
-                           qe.fit.control = qe.fit.control.g1,
-                           scenario = scenario.g1)
+
   if (scenario.g1 == "S4") {
     effect.size.g1 <- mean.g1
+    asymptvar.g1 <- sd.g1^2 / n.g1
+    selected.dist.g1 <- "normal"
   } else {
     effect.size.g1 <- med.g1
+    fit.g1 <- estmeansd::qe.fit(min.val = min.g1, q1.val = q1.g1,
+                                med.val = med.g1, q3.val = q3.g1,
+                                max.val = max.g1, n = n.g1,
+                                qe.fit.control = qe.fit.control.g1,
+                                two.sample.default = TRUE)
+    selected.dist.g1 <- names(which.min(fit.g1$values))
+    fitted.fm.g1 <- get.fm(fit.g1, selected.dist.g1)
+    asymptvar.g1 <- 0.25 * (1 / (fitted.fm.g1^2 * n.g1))
   }
   if (one.sample) {
-    selected.dist <- names(which.min(fit.g1$values))
-    fitted.fm.g1 <- get.fm(fit.g1, selected.dist)
-    asymptvar <- 0.25 * (1 / (fitted.fm.g1^2 * n.g1))
     effect.size <- effect.size.g1
+    asymptvar <- asymptvar.g1
+    selected.dist <- selected.dist.g1
   } else {
-    fit.g2 <- qe.group.level(min.val = min.g2, q1.val = q1.g2, med.val = med.g2,
-                             q3.val = q3.g2, max.val = max.g2, n = n.g2,
-                             mean.val = mean.g2, sd.val = sd.g2,
-                             qe.fit.control = qe.fit.control.g2,
-                             scenario = scenario.g2)
     if (scenario.g2 == "S4") {
       effect.size.g2 <- mean.g2
+      asymptvar.g2 <- sd.g2^2 / n.g2
+      selected.dist.g2 <- "normal"
     } else {
       effect.size.g2 <- med.g2
+      fit.g2 <- estmeansd::qe.fit(min.val = min.g2, q1.val = q1.g2,
+                                  med.val = med.g2, q3.val = q3.g2,
+                                  max.val = max.g2, n = n.g2,
+                                  qe.fit.control = qe.fit.control.g2,
+                                  two.sample.default = TRUE)
+      selected.dist.g2 <- names(which.min(fit.g2$values))
+      fitted.fm.g2 <- get.fm(fit.g2, selected.dist.g2)
+      asymptvar.g2 <- 0.25 * (1 / (fitted.fm.g2^2 * n.g2))
     }
     effect.size <- effect.size.g1 - effect.size.g2
-    if (!single.family) {
-      selected.dist <- c(names(which.min(fit.g1$values)),
-                         names(which.min(fit.g2$values)))
-      fitted.fm.g1 <- get.fm(fit.g1, selected.dist[1])
-      fitted.fm.g2 <- get.fm(fit.g2, selected.dist[2])
-    } else {
-      selected.dist <- names(which.min(fit.g1$values + fit.g2$values))
-      fitted.fm.g1 <- get.fm(fit.g1, selected.dist)
-      fitted.fm.g2 <- get.fm(fit.g2, selected.dist)
-    }
-    if (loc.shift) {
-      fitted.fm <- stats::weighted.mean(x = c(fitted.fm.g1, fitted.fm.g2),
-                                        w = c(n.g1, n.g2))
-      asymptvar <- 0.25 / (fitted.fm)^2 * (1 / n.g1 + 1 / n.g2)
-    } else {
-      asymptvar <- 0.25 * (1 / (fitted.fm.g1^2 * n.g1) +
-                             1 / (fitted.fm.g2^2 * n.g2))
+    asymptvar <- asymptvar.g1 + asymptvar.g2
+    selected.dist <- c(selected.dist.g1, selected.dist.g2)
+
+    if (scenario.g1 != "S4" & scenario.g2 != "S4" &
+        (single.family | loc.shift)){
+      if (single.family){
+        selected.dist <- names(which.min(fit.g1$values + fit.g2$values))
+        fitted.fm.g1 <- get.fm(fit.g1, selected.dist)
+        fitted.fm.g2 <- get.fm(fit.g2, selected.dist)
+      }
+      if (loc.shift) {
+        fitted.fm <- stats::weighted.mean(x = c(fitted.fm.g1, fitted.fm.g2),
+                                          w = c(n.g1, n.g2))
+        asymptvar <- 0.25 / (fitted.fm)^2 * (1 / n.g1 + 1 / n.g2)
+      } else {
+        asymptvar <- 0.25 * (1 / (fitted.fm.g1^2 * n.g1) +
+                               1 / (fitted.fm.g2^2 * n.g2))
+      }
     }
   }
   if (one.sample) {
