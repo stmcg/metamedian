@@ -102,7 +102,8 @@ qe <- function(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1,
   all.args <- as.list(environment())
   data.args <- all.args[names(all.args) %in% all.data.args.names]
   data.args.spec <- data.args[sapply(data.args,
-                                     function(x) class(x) == "numeric")]
+                                     function(x) class(x) == "numeric" |
+                                       class(x) == "integer")]
   data.args.unspec.names <- all.data.args.names[!(all.data.args.names
                                                   %in% names(data.args.spec))]
 
