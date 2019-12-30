@@ -1,8 +1,10 @@
 Package Updates
 ---------------
 
-### Changes in Version 0.1.5 (2019-12-30)
+### Changes in Version 0.1.5 (TBD)
 
+-   Revised the `pool.med()` function to allow users to specify the
+    desired coverage probability
 -   Updated references
 
 ### Changes in Version 0.1.4 (2019-05-19)

@@ -4,21 +4,23 @@
 \alias{pool.med}
 \title{Meta-Analysis via median of (the difference of) medians method}
 \usage{
-pool.med(yi, wi, norm.approx = TRUE)
+pool.med(yi, wi, norm.approx = TRUE, coverage.prob = 0.95)
 }
 \arguments{
 \item{yi}{vector of the study-specific effect sizes (e.g., the medians or the difference of medians)}
 
 \item{wi}{optional vector of positive, study-specific weights (e.g., sample sizes)}
 
-\item{norm.approx}{optional logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate 95\% confidence interval (the default is \code{TRUE}).}
+\item{norm.approx}{optional logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval (the default is \code{TRUE}).}
+
+\item{coverage.prob}{optional numeric scalar indicating the desired coverage probability (the default is \code{0.95}).}
 }
 \value{
 A list with components
 \item{pooled.est}{Pooled estimate}
 \item{ci.lb}{Lower bound of confidence interval}
 \item{ci.ub}{Upper bound of confidence interval}
-\item{cov.level}{Theoretical coverage of the confidence interval around the pooled estimate. When \code{norm.approx} is set to \code{TRUE}, the theoretical coverage is 95\%. When \code{norm.approx} is set to \code{FALSE}, the theoretical coverage is set to the smallest possible value greater than 95\%.}
+\item{cov.level}{Theoretical coverage of the confidence interval around the pooled estimate. When \code{norm.approx} is set to \code{TRUE}, the theoretical coverage is the same as the value specified by \code{coverage.prob}. When \code{norm.approx} is set to \code{FALSE}, the theoretical coverage is set to the smallest possible value greater than the value specified by \code{coverage.prob}.}
 }
 \description{
 This function meta-analyzes the study-specific effect sizes by applying the (weighted) median of medians method (McGrath et al., 2019a) in one-sample contexts and the (weighted) median of the difference of median method (McGrath et al., 2019b) in two-sample contexts.
