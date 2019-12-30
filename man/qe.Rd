@@ -51,7 +51,7 @@ qe(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1, min.g2,
 An object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
 }
 \description{
-The function applies the quantile estimation (QE) method (McGrath et al., 2018) to meta-analyze one-group or two-group studies where each study reports one of the following summary measures: \itemize{
+The function applies the quantile estimation (QE) method (McGrath et al., 2019) to meta-analyze one-group or two-group studies where each study reports one of the following summary measures: \itemize{
 \item S1: median, minimum and maximum values, and sample size
 \item S2: median, first and third quartiles, and sample size
 \item S3: median, minimum and maximum values, first and third quartiles, and sample size
@@ -120,5 +120,5 @@ qe(min.g1 = min.g1, q1.g1 = q1.g1, med.g1 = med.g1, q3.g1 = q3.g1,
 
 }
 \references{
-McGrath S., Sohn H., Steele R., and Benedetti A. (2018). Two-sample aggregate data meta-analysis of medians. \emph{ArXiv e-prints}. \url{https://arxiv.org/abs/1809.01278}.
+McGrath S., Sohn H., Steele R., and Benedetti A. (2019). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, 1-30.
 }

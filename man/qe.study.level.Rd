@@ -70,7 +70,7 @@ In order to estimate the asymptotic sampling variance of the median (in S1, S2, 
 
 For two-group studies studies, one may assume that the outcome in both groups follows the same parametric family of distributions. In this case, distribution selection for the QE method is applied as follows. The \code{\link{qe.fit}} function is applied to fit the candidate distributions of each group separately. However, for each candidate distribution, the objective function evaluated at the fitting parameters are summed over the two groups. The parametric family of distributions with the smallest sum is used as the underlying distribution of the both groups. If \code{single.family} is \code{TRUE}, then \code{selected.dist} is a character string indicating the selected parametric family. If \code{single.family} is \code{FALSE}, then \code{selected.dist} is a vector of length 2 where elements 1 and 2 are character strings of the selected parametric families in groups 1 and 2, respectively.
 
-One may also assume for two-group studies that the outcome distributions in the two groups only differ by a location shfit. In this case, a weighted mean (weighted by sample size) of the estimated probability density functions evaluated at the population medians is used to estimate the asymptotic sampling variance of the difference of medians. See McGrath et al. (2018) for further details.
+One may also assume for two-group studies that the outcome distributions in the two groups only differ by a location shfit. In this case, a weighted mean (weighted by sample size) of the estimated probability density functions evaluated at the population medians is used to estimate the asymptotic sampling variance of the difference of medians. See McGrath et al. (2019) for further details.
 
 When a study provides S4 summary measures, the outcome distribution is assumed to be normal. The sample median is estimated by the sample mean, and its variance is estimated by the sample variance divided by the sample size. In this case, the \code{single.family} and \code{loc.shift} arguments are not used.
 }
@@ -87,5 +87,5 @@ qe.study.level(q1.g1 = quants[1], med.g1 = quants[2], q3.g1 = quants[3],
 
 }
 \references{
-McGrath S., Sohn H., Steele R., and Benedetti A. (2018). Two-sample aggregate data meta-analysis of medians. \emph{ArXiv e-prints}. \url{https://arxiv.org/abs/1809.01278}.
+McGrath S., Sohn H., Steele R., and Benedetti A. (2019). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, 1-30.
 }
