@@ -52,8 +52,8 @@ pool.med <- function(yi, wi, norm.approx = TRUE, coverage.prob = 0.95) {
     if (missing(wi)) {
       quantiles <- unname(stats::quantile(yi, probs = prob.vec))
     } else {
-      quantiles <- unname(Hmisc::wtd.quantile(yi, weights = wi,
-                                              probs = prob.vec))
+      quantiles <- unname(spatstat::weighted.quantile(yi, w = wi,
+                                                      probs = prob.vec))
     }
   } else {
     T.val.all <- 0:floor(n / 2)
@@ -71,8 +71,8 @@ pool.med <- function(yi, wi, norm.approx = TRUE, coverage.prob = 0.95) {
                      yi.sorted[n - ind])
     } else {
       prob.vec <- c(ind / n, 0.5, (n - ind + 1) / n)
-      quantiles <- unname(Hmisc::wtd.quantile(yi, weights = wi,
-                                              probs = prob.vec))
+      quantiles <- unname(spatstat::weighted.quantile(yi, w = wi,
+                                                      probs = prob.vec))
     }
   }
   return(list(pooled.est = quantiles[2], ci.lb = quantiles[1],

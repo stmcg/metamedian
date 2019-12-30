@@ -11,9 +11,10 @@
 The `metamedian` package implements several methods to meta-analyze
 studies that report the sample median of the outcome. When the primary
 studies are one-group studies, the methods of [McGrath et
-al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.8013?af=R)
+al. (2019a)](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.8013?af=R)
 can be applied to estimate the pooled median. In the two-group context,
-the methods of [McGrath et al. (2018)](https://arxiv.org/abs/1809.01278)
+the methods of [McGrath et
+al. (2019b)](https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.201900036)
 can be applied to estimate the pooled raw difference of medians across
 groups.
 
