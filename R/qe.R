@@ -1,6 +1,6 @@
 #' Meta-Analysis via quantile estimation method
 #'
-#' The function applies the quantile estimation (QE) method (McGrath et al., 2019) to meta-analyze one-group or two-group studies where each study reports one of the following summary measures: \itemize{
+#' The function applies the quantile estimation (QE) method (McGrath et al., 2020) to meta-analyze one-group or two-group studies where each study reports one of the following summary measures: \itemize{
 #' \item S1: median, minimum and maximum values, and sample size
 #' \item S2: median, first and third quartiles, and sample size
 #' \item S3: median, minimum and maximum values, first and third quartiles, and sample size
@@ -33,7 +33,7 @@
 #' @param ... optional arguments for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 
 #' @return An object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
-#' @references McGrath S., Sohn H., Steele R., and Benedetti A. (2019). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, 1-30.
+#' @references McGrath S., Sohn H., Steele R., and Benedetti A. (2020). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, \strong{62}, 69-98.
 #'
 #' @examples
 #' ## Example 1: Meta-analysis of one-group studies

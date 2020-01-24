@@ -1,10 +1,8 @@
 Package Updates
 ---------------
 
-### Changes in Version 0.1.5 (2019-12-30)
+### Changes in Version 0.1.5 (2020-01-27)
 
--   Revised computation of weighted quantiles in the `pool.med()`
-    function
 -   Revised the `pool.med()` function to allow users to specify the
     desired coverage probability
 -   Updated references

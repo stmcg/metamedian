@@ -21,8 +21,8 @@ Description: Implements several methods to meta-analyze studies that report the
     applied to estimate the pooled raw difference of medians across groups.
 Imports:
     estmeansd,
+    Hmisc,
     metafor,
-    spatstat,
     stats
 License: GPL (>=3)
 Encoding: UTF-8
