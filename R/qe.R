@@ -56,7 +56,7 @@
 #' min.vals <- c(0.7, NA, 1.1, NA)
 #' q1.vals <- c(NA, 5.2, 5.3, NA)
 #' med.vals <- c(8.7, 10.7, 11.0, NA)
-#' q3.vals <- c(NA, 5.2, 5.3, NA)
+#' q3.vals <- c(NA, 15.2, 15.3, NA)
 #' max.vals <- c(22.2, NA, 24.7, NA)
 #' n.vals <- c(52, 34, 57, 90)
 #' sd.vals <- c(NA, NA, NA, 4.2)

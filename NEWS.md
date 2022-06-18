@@ -1,5 +1,9 @@
-Package Updates
----------------
+## Package Updates
+
+### Changes in Version 0.1.6 (2022-06-18)
+
+-   Fixed an error in Example 2 in the documentation for the `qe()`
+    function
 
 ### Changes in Version 0.1.5 (2020-01-27)
 

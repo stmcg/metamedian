@@ -3,10 +3,10 @@
 
 # metamedian: Meta-Analysis of Medians
 
-[![Build\_Status](https://travis-ci.org/stmcg/metamedian.svg?branch=master)](https://travis-ci.org/stmcg/metamedian)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/metamedian)](https://cran.r-project.org/package=metamedian)
-[![CRAN\_Download\_Badge](https://cranlogs.r-pkg.org/badges/metamedian)](https://www.r-pkg.org/pkg/metamedian)
-[![CRAN\_Download\_Badge\_All](https://cranlogs.r-pkg.org/badges/grand-total/metamedian)](https://www.r-pkg.org/pkg/metamedian)
+[![Build_Status](https://travis-ci.org/stmcg/metamedian.svg?branch=master)](https://travis-ci.org/stmcg/metamedian)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/metamedian)](https://cran.r-project.org/package=metamedian)
+[![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/metamedian)](https://www.r-pkg.org/pkg/metamedian)
+[![CRAN_Download_Badge_All](https://cranlogs.r-pkg.org/badges/grand-total/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 
 The `metamedian` package implements several methods to meta-analyze
 studies that report the sample median of the outcome. When the primary
@@ -15,7 +15,7 @@ al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.8013?af=R)
 can be applied to estimate the pooled median. In the two-group context,
 the methods of [McGrath et
 al. (2020)](https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.201900036)
-can be applied to estimate the pooled raw difference of medians across
+can be applied to estimate the pooled difference of medians across
 groups.
 
 ## Installation

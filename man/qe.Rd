@@ -4,9 +4,27 @@
 \alias{qe}
 \title{Meta-Analysis via quantile estimation method}
 \usage{
-qe(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1, min.g2,
-  q1.g2, med.g2, q3.g2, max.g2, n.g2, mean.g2, sd.g2,
-  single.family = FALSE, loc.shift = FALSE, ...)
+qe(
+  min.g1,
+  q1.g1,
+  med.g1,
+  q3.g1,
+  max.g1,
+  n.g1,
+  mean.g1,
+  sd.g1,
+  min.g2,
+  q1.g2,
+  med.g2,
+  q3.g2,
+  max.g2,
+  n.g2,
+  mean.g2,
+  sd.g2,
+  single.family = FALSE,
+  loc.shift = FALSE,
+  ...
+)
 }
 \arguments{
 \item{min.g1}{vector of study-specific sample minimum values (first group for two-group studies). See 'Details'.}
@@ -85,7 +103,7 @@ qe(q1.g1 = q1.vals, med.g1 = med.vals, q3.g1 = q3.vals, n.g1 = n.vals)
 min.vals <- c(0.7, NA, 1.1, NA)
 q1.vals <- c(NA, 5.2, 5.3, NA)
 med.vals <- c(8.7, 10.7, 11.0, NA)
-q3.vals <- c(NA, 5.2, 5.3, NA)
+q3.vals <- c(NA, 15.2, 15.3, NA)
 max.vals <- c(22.2, NA, 24.7, NA)
 n.vals <- c(52, 34, 57, 90)
 sd.vals <- c(NA, NA, NA, 4.2)

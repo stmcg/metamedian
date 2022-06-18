@@ -4,10 +4,28 @@
 \alias{qe.study.level}
 \title{Study-Level application of quantile estimation method}
 \usage{
-qe.study.level(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1,
-  min.g2, q1.g2, med.g2, q3.g2, max.g2, n.g2, mean.g2, sd.g2,
-  single.family = FALSE, loc.shift = FALSE,
-  qe.fit.control.g1 = list(), qe.fit.control.g2 = list())
+qe.study.level(
+  min.g1,
+  q1.g1,
+  med.g1,
+  q3.g1,
+  max.g1,
+  n.g1,
+  mean.g1,
+  sd.g1,
+  min.g2,
+  q1.g2,
+  med.g2,
+  q3.g2,
+  max.g2,
+  n.g2,
+  mean.g2,
+  sd.g2,
+  single.family = FALSE,
+  loc.shift = FALSE,
+  qe.fit.control.g1 = list(),
+  qe.fit.control.g2 = list()
+)
 }
 \arguments{
 \item{min.g1}{numeric value giving the sample minimum (first group for two-group studies).}
