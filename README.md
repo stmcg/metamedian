@@ -14,9 +14,21 @@ studies are one-group studies, the methods of [McGrath et
 al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.8013?af=R)
 can be applied to estimate the pooled median. In the two-group context,
 the methods of [McGrath et
-al. (2020)](https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.201900036)
+al. (2020a)](https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.201900036)
 can be applied to estimate the pooled difference of medians across
 groups.
+
+Additionally, this package implements methods to estimate the
+study-specific means and their standard errors from studies reporting
+sample medians in order to estimate the pooled (difference of) means.
+Specifically, one can apply the methods of [McGrath et
+al. (2020b)](https://journals.sagepub.com/doi/full/10.1177/0962280219889080)
+and [Cai et
+al. (2021)](https://journals.sagepub.com/doi/full/10.1177/09622802211047348)
+to estimate study-specific means and standard deviations, and one can
+apply the parametric bootstrap approach of [McGrath et
+al. (2022)](https://arxiv.org/abs/2206.14386) to estimate their
+corresponding standard errors.
 
 ## Installation
 

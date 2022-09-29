@@ -8,6 +8,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Package Updates
 
+### Changes in Version 1.0.0 (TBD)
+*  Added the `metamean()` function, which can apply several methods to estimate 
+   study-specific means and their standard errors in order to estimate the 
+   pooled (difference of) means
+*  Added the `metamedian()` function, which is a wrapper for the `qe()`
+   and `pool.med()` functions.
+
 ### Changes in Version 0.1.6 (2022-06-18)
 *  Fixed an error in Example 2 in the documentation for the `qe()` function
 
