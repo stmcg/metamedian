@@ -36,7 +36,7 @@
 #' @export
 
 metamean <- function(df, mean_method = 'mln', nboot = 1e3, ...) {
-  df <- check_and_clean_df(df = df)
+  df <- check_and_clean_df(df = df, method = mean_method)
   if (!mean_method %in% c('qe', 'bc', 'mln')){
     stop("mean_method must be set to 'qe', 'bc', or 'mln'")
   }
@@ -102,9 +102,15 @@ metamean <- function(df, mean_method = 'mln', nboot = 1e3, ...) {
   return(metafor::rma.uni(yi = yi, sei = sei, ...))
 }
 
-check_and_clean_df <- function(df){
-  all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
-                             'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
+check_and_clean_df <- function(df, method){
+  if (method != 'ob'){
+    all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
+                               'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
+  } else {
+    all_possible_colnames <- c('q1.g1', 'med.g1', 'q3.g1', 'n.g1', 'mean.g1', 'sd.g1', 'med.var.g1',
+                               'med.ci.lb.g1', 'med.ci.ub.g1', 'alpha.1.g1', 'alpha.2.g1')
+  }
+
 
 
   # Filling missing columns

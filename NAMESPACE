@@ -2,6 +2,7 @@
 
 export(metamean)
 export(metamedian)
+export(ob)
 export(pool.med)
 export(qe)
 export(qe.study.level)

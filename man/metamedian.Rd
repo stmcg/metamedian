@@ -11,6 +11,7 @@ metamedian(
   loc.shift = FALSE,
   norm.approx = TRUE,
   coverage.prob = 0.95,
+  method_ob = "RE",
   ...
 )
 }
@@ -24,33 +25,43 @@ metamedian(
 \code{max.g1} \tab maximum value. \cr
 \code{n.g1} \tab sample size. \cr
 \code{mean.g1} \tab sample mean. \cr
-\code{sd.g1} \tab sample standard deviation. \cr}
+\code{sd.g1} \tab sample standard deviation. \cr
+\code{med.var.g1} \tab sampling variance of the median (only applicable when \code{median_method=ob}). \cr
+\code{med.ci.lb.g1} \tab lower confidence interval bound around the median (only applicable when \code{median_method=ob}). \cr
+\code{med.ci.ub.g1} \tab upper confidence interval bound around the median (only applicable when \code{median_method=ob}). \cr
+\code{alpha.1.g1} \tab \eqn{\alpha_1} values from Ozturk and Balakrishnan (2020) (only applicable when \code{median_method=ob}). \cr
+\code{alpha.2.g1} \tab \eqn{\alpha_2} values from Ozturk and Balakrishnan (2020) (only applicable when \code{median_method=ob}). \cr}
 For two group studies, this data frame can also contain the following columns for the summary data of the second group: \code{min.g2}, \code{q1.g2}, \code{med.g2}, \code{q3.g2}, \code{max.g2}, \code{n.g2}, \code{mean.g2}, and \code{sd.g2}.}
 
 \item{median_method}{character string specifying the approach used to estimate the study-specific means and their standard errors. The options are
 \tabular{ll}{
 \code{mm} \tab Median of Medians (McGrath et al. 2019) for one-group studies and Median of the Difference of Medians (McGrath et al. 2020) for two group studies. \cr
 \code{wm} \tab Weighted Median of Medians (McGrath et al. 2019) for one-group studies and Weighted Median of the Difference of Medians (McGrath et al. 2020) for two group studies. \cr
-\code{qe} \tab Quantile Matching Estimation (McGrath et al. 20220). This is the default option. \cr}}
+\code{qe} \tab Quantile Matching Estimation (McGrath et al. 20220). This approach is applicable for one-group studies or two-group studies. This is the default option. \cr
+\code{ob} \tab The approach of Ozturk and Balakrishnan (2020). This approach is applicable for one-group studies. \cr}}
 
 \item{single.family}{(only applicable when \code{median_method} is set to \code{qe}) logical scalar indicating that for two-group studies, the parametric family of distributions is assumed to be the same across both groups. The default is \code{FALSE}. See 'Details' of \code{\link{qe.study.level}}.}
 
 \item{loc.shift}{(only applicable when \code{median_method} is set to \code{qe}) logical scalar indicating that for two-group studies, distributions are assumed to only differ by a location shift. The default is \code{FALSE}. See 'Details' of \code{\link{qe.study.level}}.}
 
-\item{norm.approx}{(only applicable when \code{median_method} is set to \code{mm}) logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval. The default is \code{TRUE}.}
+\item{norm.approx}{(only applicable when \code{median_method} is set to \code{mm} or \code{wm}) logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval. The default is \code{TRUE}.}
 
-\item{coverage.prob}{(only applicable when \code{median_method} is set to \code{mm}) numeric scalar indicating the desired coverage probability. The default is \code{0.95}.}
+\item{coverage.prob}{(only applicable when \code{median_method} is set to \code{mm}, \code{wm}, or \code{ob}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate The default is \code{0.95}.}
+
+\item{method_ob}{(only applicable when \code{median_method} is set to \code{ob}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.}
 
 \item{...}{(only applicable when \code{median_method} is set to \code{qe}) optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.}
 }
 \value{
-an object of class "rma.uni" (when \code{median_method} is set to \code{qe}) or a list (when \code{median_method} is set to \code{mm} or \code{wm}). For additional details, see the \code{\link[metafor]{rma.uni}} and \code{\link{pool.med}} functions, respectively.
+an object of class "rma.uni" (when \code{median_method} is set to \code{qe}) or a list (when \code{median_method} is set to \code{mm}, \code{wm}, or \code{ob}). For additional details, see \code{\link[metafor]{rma.uni}} (when \code{median_method} is set to \code{qe}), \code{\link{pool.med}} (when \code{median_method} is set to \code{mm} or \code{wm}), and \code{\link{ob}} (when \code{median_method} is set to \code{ob}).
 }
 \description{
-This function is a wrapper function for the \code{\link{qe}} and \code{\link{pool.med}} functions. The function implements the methods of McGrath et al. (2019) and McGrath et al. (2020) to estimate the pooled (difference of) medians in a meta-analysis. Specifically, the function implements the (weighted) median of medians method and quantile matching estimation method to meta-analyze one-group studies; the function implements the (weighted) median of the difference of medians method and quantile matching estimation method to meta-analyze two-group studies.
+This function is a wrapper function for the \code{\link{qe}}, \code{\link{ob}}, and \code{\link{pool.med}} functions. The function implements the methods of McGrath et al. (2019), McGrath et al. (2020), and Ozturk and Balakrishnan (2020) to estimate the pooled (difference of) medians in a meta-analysis. Specifically, the function implements the (weighted) median of medians method, the Ozturk and Balakrishnan (2020) method, and the quantile matching estimation method to meta-analyze one-group studies; the function implements the (weighted) median of the difference of medians method and quantile matching estimation method to meta-analyze two-group studies.
 }
 \references{
 McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2019). One-sample aggregate data meta-analysis of medians. \emph{Statistics in Medicine}, \strong{38}, 969-984.
 
 McGrath S., Sohn H., Steele R., and Benedetti A. (2020). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, \strong{62}, 69-98.
+
+Ozturk, O. and Balakrishnan N. (2020). Meta‐analysis of quantile intervals from different studies with an application to a pulmonary tuberculosis data. \emph{Statistics in Medicine}, \strong{39}, 4519-4537.
 }
