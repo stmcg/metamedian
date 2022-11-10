@@ -20,17 +20,29 @@ al. (2020a)](https://onlinelibrary.wiley.com/doi/abs/10.1002/bimj.201900036)
 can be applied to estimate the pooled difference of medians across
 groups.
 
-Additionally, this package implements methods to estimate the
-study-specific means and their standard errors from studies reporting
-sample medians in order to estimate the pooled (difference of) means.
-Specifically, one can apply the methods of [McGrath et
-al. (2020b)](https://journals.sagepub.com/doi/full/10.1177/0962280219889080)
-and [Cai et
-al. (2021)](https://journals.sagepub.com/doi/full/10.1177/09622802211047348)
-to estimate study-specific means and standard deviations, and one can
-apply the parametric bootstrap approach of [McGrath et
-al. (2022)](https://arxiv.org/abs/2206.14386) to estimate their
-corresponding standard errors.
+Additionally, this package implements a number of methods to estimate
+the study-specific means and their standard errors from studies
+reporting sample medians in order to estimate the pooled (difference of)
+means. Specifically, one can apply the following methods in this
+context:
+
+-   [Hozo et
+    al. (2005)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-5-13)
+-   [Wan et
+    al. (2014)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-135)
+-   [Bland
+    (2015)](https://lifescienceglobal.com/pms/index.php/ijsmr/article/view/2688)
+-   [Shi et
+    al. (2020a)](https://onlinelibrary.wiley.com/doi/10.1002/jrsm.1429)
+-   [Shi et
+    al. (2020b)](https://www.intlpress.com/site/pub/pages/journals/items/sii/content/vols/0013/0004/a009/)
+-   [McGrath et
+    al. (2020b)](https://journals.sagepub.com/doi/full/10.1177/0962280219889080)
+-   [Cai et
+    al. (2021)](https://journals.sagepub.com/doi/full/10.1177/09622802211047348)
+-   [Yang et
+    al. (2022)](https://www.tandfonline.com/doi/full/10.1080/02664763.2021.1967890)
+-   [McGrath et al. (In press)](https://arxiv.org/abs/2206.14386)
 
 ## Installation
 

@@ -4,7 +4,14 @@
 \alias{metamean}
 \title{Meta-Analysis of the (difference of) means}
 \usage{
-metamean(df, mean_method = "mln", nboot = 1000, ...)
+metamean(
+  df,
+  mean_method = "mln",
+  se_method = "bootstrap",
+  sd_method = NA,
+  nboot = 1000,
+  ...
+)
 }
 \arguments{
 \item{df}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
@@ -21,11 +28,32 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{mean_method}{character string specifying the approach used to estimate the study-specific means. The options are the following:
 \tabular{ll}{
-\code{qe} \tab Quantile Matching Estimation (McGrath et al. 20220). \cr
-\code{bc} \tab Box-Cox (McGrath et al. 2020). \cr
-\code{mln} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr}}
+\code{'wan'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
+\code{'luo'} \tab Method of Luo et al. (2018). \cr
+\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Luo et al. (2018) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
+\code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
+\code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
+\code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
+\code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
+\code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}}
 
-\item{nboot}{integer specifying the number of bootstrap samples to use when estimating the study-specific standard errors. The default is \code{1000}.}
+\item{se_method}{character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
+\tabular{ll}{
+\code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (In press). \cr
+\code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr
+\code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr}}
+
+\item{sd_method}{character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
+\tabular{ll}{
+\code{'wan'} \tab Method of Wan et al. (2014). \cr
+\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
+\code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
+\code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
+\code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
+\code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
+\code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}}
+
+\item{nboot}{integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.}
 
 \item{...}{optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.}
 }
@@ -39,15 +67,26 @@ The function meta-analyzes one-group or two-group studies where each study repor
 \item S3: median, minimum and maximum values, first and third quartiles, and sample size
 \item S4: mean, standard deivation, and sample size.
  }
-This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
-}
-\details{
-When studies report S1, S2, or S3 summary data, the approaches described by McGrath et al. (2020) and Cai et al. (2021) can be applied to estimate the study-specific means. Their standard errors are estimated by parametric bootstrap (McGrath et al. 2022).
+This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. When studies report S1, S2, or S3 summary data, a number of approaches can be applied to estimate the study-specific means and their standard errors. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
 }
 \references{
+Hozo S.P., Djulbegovic B., and Hozo I. (2005). Estimating the mean and variance from the median, range, and the size of a sample. \emph{BMC Medical Research Methodology}. \strong{5}(1):1-10.
+
+Wan X., Wang W., Liu J., and Tong T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology}. \strong{14}(1):1-13.
+
+Bland M. (2015). Estimating mean and standard deviation from the sample size, three quartiles, minimum, and maximum. \emph{International Journal of Statistics in Medical Research}. \strong{4}(1):57-64.
+
+Luo D., Wan X., Liu J., and Tong T. (2016). Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical Methods in Medical Research}. \strong{27}(6):1785-805.
+
+Shi J., Luo D., Weng H., Zeng X.T., Lin L., Chu H., and Tong T. (2020a). Optimally estimating the sample standard deviation from the five-number summary. \emph{Research synthesis methods}. \strong{11}(5):641-654.
+
+Shi J., Tong T., Wang Y., and Genton M.G. (2020b). Estimating the mean and variance from the five-number summary of a log-normal distribution. \emph{Statistics and Its Interface}. \strong{13}(4):519-531.
+
 McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
 
 Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
 
-McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (2022). Standard error estimation in meta-analysis of studies reporting medians. \emph{arXiv e-prints}.
+Yang X., Hutson A.D., and Wang D. (2022). A generalized BLUE approach for combining location and scale information in a meta-analysis. \emph{Journal of Applied Statistics}. \strong{49}(15):3846-3867.
+
+McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (In press). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}.
 }

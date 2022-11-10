@@ -6,9 +6,7 @@
 #' \item S3: median, minimum and maximum values, first and third quartiles, and sample size
 #' \item S4: mean, standard deivation, and sample size.
 #'  }
-#' This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
-#'
-#' When studies report S1, S2, or S3 summary data, the approaches described by McGrath et al. (2020) and Cai et al. (2021) can be applied to estimate the study-specific means. Their standard errors are estimated by parametric bootstrap (McGrath et al. 2022).
+#' This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. When studies report S1, S2, or S3 summary data, a number of approaches can be applied to estimate the study-specific means and their standard errors. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
 #'
 #' @param df data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{
@@ -23,26 +21,58 @@
 #' For two group studies, this data frame can also contain the following columns for the summary data of the second group: \code{min.g2}, \code{q1.g2}, \code{med.g2}, \code{q3.g2}, \code{max.g2}, \code{n.g2}, \code{mean.g2}, and \code{sd.g2}.
 #' @param mean_method character string specifying the approach used to estimate the study-specific means. The options are the following:
 #' \tabular{ll}{
-#' \code{qe} \tab Quantile Matching Estimation (McGrath et al. 20220). \cr
-#' \code{bc} \tab Box-Cox (McGrath et al. 2020). \cr
-#' \code{mln} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr}
-#' @param nboot integer specifying the number of bootstrap samples to use when estimating the study-specific standard errors. The default is \code{1000}.
+#' \code{'wan'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
+#' \code{'luo'} \tab Method of Luo et al. (2018). \cr
+#' \code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Luo et al. (2018) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
+#' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
+#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
+#' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
+#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
+#' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
+#' @param se_method character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
+#' \tabular{ll}{
+#' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (In press). \cr
+#' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr
+#' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr}
+#' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
+#' \tabular{ll}{
+#' \code{'wan'} \tab Method of Wan et al. (2014). \cr
+#' \code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
+#' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
+#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
+#' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
+#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
+#' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
+#' @param nboot integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
+#' @references Hozo S.P., Djulbegovic B., and Hozo I. (2005). Estimating the mean and variance from the median, range, and the size of a sample. \emph{BMC Medical Research Methodology}. \strong{5}(1):1-10.
+#' @references Wan X., Wang W., Liu J., and Tong T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology}. \strong{14}(1):1-13.
+#' @references Bland M. (2015). Estimating mean and standard deviation from the sample size, three quartiles, minimum, and maximum. \emph{International Journal of Statistics in Medical Research}. \strong{4}(1):57-64.
+#' @references Luo D., Wan X., Liu J., and Tong T. (2016). Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical Methods in Medical Research}. \strong{27}(6):1785-805.
+#' @references Shi J., Luo D., Weng H., Zeng X.T., Lin L., Chu H., and Tong T. (2020a). Optimally estimating the sample standard deviation from the five-number summary. \emph{Research synthesis methods}. \strong{11}(5):641-654.
+#' @references Shi J., Tong T., Wang Y., and Genton M.G. (2020b). Estimating the mean and variance from the five-number summary of a log-normal distribution. \emph{Statistics and Its Interface}. \strong{13}(4):519-531.
 #' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
 #' @references Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
-#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (2022). Standard error estimation in meta-analysis of studies reporting medians. \emph{arXiv e-prints}.
+#' @references Yang X., Hutson A.D., and Wang D. (2022). A generalized BLUE approach for combining location and scale information in a meta-analysis. \emph{Journal of Applied Statistics}. \strong{49}(15):3846-3867.
+#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (In press). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}.
+
 #' @export
 
-metamean <- function(df, mean_method = 'mln', nboot = 1e3, ...) {
-  df <- check_and_clean_df(df = df, method = mean_method)
-  if (!mean_method %in% c('qe', 'bc', 'mln')){
-    stop("mean_method must be set to 'qe', 'bc', or 'mln'")
-  }
-  one_group <- all(is.na(df[, c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')]))
+metamean <- function(df, mean_method = 'mln', se_method = 'bootstrap',
+                     sd_method = NA, nboot = 1e3, ...) {
 
+  df <- check_and_clean_df(df = df, method = mean_method)
   n_studies <- nrow(df)
+
+  res <- check_mean_se_methods(mean_method = mean_method, se_method = se_method,
+                               sd_method = sd_method, n = n_studies)
+  mean_method <- res$mean_method
+  se_method <- res$se_method
+  sd_method <- res$sd_method
+
+  one_group <- all(is.na(df[, c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')]))
   mean.g1 <- rep(NA, times = n_studies); mean.g2 <- rep(NA, times = n_studies)
   se.g1 <- rep(NA, times = n_studies); se.g2 <- rep(NA, times = n_studies)
 
@@ -54,18 +84,11 @@ metamean <- function(df, mean_method = 'mln', nboot = 1e3, ...) {
       mean.g1[i] <- df[i, 'mean.g1']
       se.g1[i] <- df[i, 'sd.g1'] / sqrt(df[i, 'n.g1'])
     } else {
-      if (mean_method == 'mln'){
-        res <- estmeansd::mln.mean.sd(min.val = df[i, 'min.g1'], q1.val = df[i, 'q1.g1'], med.val = df[i, 'med.g1'],
-                                      q3.val = df[i, 'q3.g1'], max.val = df[i, 'max.g1'], n = df[i, 'n.g1'])
-      } else if (mean_method == 'bc'){
-        res <- estmeansd::bc.mean.sd(min.val = df[i, 'min.g1'], q1.val = df[i, 'q1.g1'], med.val = df[i, 'med.g1'],
-                                     q3.val = df[i, 'q3.g1'], max.val = df[i, 'max.g1'], n = df[i, 'n.g1'])
-      } else if (mean_method == 'qe'){
-        res <- estmeansd::qe.mean.sd(min.val = df[i, 'min.g1'], q1.val = df[i, 'q1.g1'], med.val = df[i, 'med.g1'],
-                                     q3.val = df[i, 'q3.g1'], max.val = df[i, 'max.g1'], n = df[i, 'n.g1'])
-      }
+      res <- get_mean_se(df = df[i, ], mean_method = mean_method[i], se_method = se_method[i],
+                         sd_method = sd_method[i], scenario = scenario.g1, group = 1, nboot = nboot)
       mean.g1[i] <- res$est.mean
-      se.g1[i] <- estmeansd::get_SE(res, nboot = nboot)$est.se
+      se.g1[i] <- res$est.se
+
     }
 
     # Group 2 Analyses
@@ -76,18 +99,10 @@ metamean <- function(df, mean_method = 'mln', nboot = 1e3, ...) {
         mean.g2[i] <- df[i, 'mean.g2']
         se.g2[i] <- df[i, 'sd.g2'] / sqrt(df[i, 'n.g2'])
       } else {
-        if (mean_method == 'mln'){
-          res <- estmeansd::mln.mean.sd(min.val = df[i, 'min.g2'], q1.val = df[i, 'q1.g2'], med.val = df[i, 'med.g2'],
-                                        q3.val = df[i, 'q3.g2'], max.val = df[i, 'max.g2'], n = df[i, 'n.g2'])
-        } else if (mean_method == 'bc'){
-          res <- estmeansd::bc.mean.sd(min.val = df[i, 'min.g2'], q1.val = df[i, 'q1.g2'], med.val = df[i, 'med.g2'],
-                                       q3.val = df[i, 'q3.g2'], max.val = df[i, 'max.g2'], n = df[i, 'n.g2'])
-        } else if (mean_method == 'qe'){
-          res <- estmeansd::qe.mean.sd(min.val = df[i, 'min.g2'], q1.val = df[i, 'q1.g2'], med.val = df[i, 'med.g2'],
-                                       q3.val = df[i, 'q3.g2'], max.val = df[i, 'max.g2'], n = df[i, 'n.g2'])
-        }
+        res <- get_mean_se(df = df[i, ], mean_method = mean_method[i], se_method = se_method[i],
+                           sd_method = sd_method[i], scenario = scenario.g2, group = 2, nboot = nboot)
         mean.g2[i] <- res$est.mean
-        se.g2[i] <- estmeansd::get_SE(res, nboot = nboot)$est.se
+        se.g2[i] <- res$est.se
       }
     }
   }
@@ -111,8 +126,6 @@ check_and_clean_df <- function(df, method){
                                'med.ci.lb.g1', 'med.ci.ub.g1', 'alpha.1.g1', 'alpha.2.g1')
   }
 
-
-
   # Filling missing columns
   missing_cols <- all_possible_colnames[which(!all_possible_colnames %in% colnames(df))]
   df[, missing_cols] <- NA
@@ -134,4 +147,184 @@ check_and_clean_df <- function(df, method){
   }
 
   return(df)
+}
+
+check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
+  if (length(mean_method) == 1){
+    mean_method <- rep(mean_method, times = n)
+  }
+  if (length(se_method) == 1){
+    se_method <- rep(se_method, times = n)
+  }
+  if (length(sd_method) == 1){
+    sd_method <- rep(sd_method, times = n)
+  }
+
+  # Checking that mean_method, se_method, and sd_method are set to valid options
+  all_mean_methods <- c('qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', 'shi_lognormal')
+  if (!all(mean_method %in% all_mean_methods)){
+    stop("mean_method must be set to 'qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', or 'shi_lognormal'")
+  }
+  all_se_methods <- c('bootstrap', 'plugin', 'naive')
+  if (!all(se_method %in% all_se_methods)){
+    stop("se_method must be set to 'bootstrap', 'plugin', or 'naive'")
+  }
+  all_sd_methods <- c('qe', 'bc', 'mln', 'wan', 'yang', 'shi_normal', 'shi_lognormal')
+  if (!is.null(sd_method)){
+    if (!all(is.na(sd_method) | sd_method %in% all_sd_methods)){
+      stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', or 'shi_lognormal'")
+    }
+  }
+
+  # Checking consistency between mean_method, sd_method, and se_method
+  for (i in 1:n){
+    if (se_method[i] == 'bootstrap'){
+      if (!mean_method[i] %in% c('qe', 'bc', 'mln')){
+        stop("se_method can only be set to 'bootstrap' when mean_method is set to 'qe', 'bc', or 'mln'")
+      }
+    } else if (se_method[i] == 'plugin'){
+      if (mean_method[i] != 'yang'){
+        stop("se_method can only be set to 'plugin' when mean_method is set to 'yang'")
+      } else if (se_method[i] == 'naive'){
+        if (is.na(sd_method[i])){
+          stop("sd_method must be specified when se_method is set to 'naive'")
+        }
+      }
+    }
+  }
+
+  return(list(mean_method = mean_method, se_method = se_method, sd_method = sd_method))
+}
+
+get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, nboot){
+  min.val <- df[, paste0('min.g', group)]
+  q1.val <- df[, paste0('q1.g', group)]
+  med.val <- df[, paste0('med.g', group)]
+  q3.val <- df[, paste0('q3.g', group)]
+  max.val <- df[, paste0('max.g', group)]
+  n <- df[, paste0('n.g', group)]
+
+  if (mean_method %in% c('luo', 'yang', 'shi_normal', 'shi_lognormal') | (!is.na(sd_method) & sd_method %in% c('wan'))){
+    if (scenario == 'S1'){
+      quants <- c(min.val, med.val, max.val)
+    } else if (scenario == 'S2'){
+      quants <- c(q1.val, med.val, q3.val)
+    } else if (scenario == 'S3'){
+      quants <- c(min.val, q1.val, med.val, q3.val, max.val)
+    }
+  }
+
+  if (mean_method == 'mln' | (!is.na(sd_method) & sd_method == 'mln')){
+    fit_mln <- estmeansd::mln.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
+    if (mean_method == 'mln'){
+      est.mean <- fit_mln$est.mean
+    }
+  } else if (mean_method == 'bc' | (!is.na(sd_method) & sd_method == 'bc')){
+    fit_bc <- estmeansd::bc.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
+    if (mean_method == 'bc'){
+      est.mean <- fit_bc$est.mean
+    }
+  } else if (mean_method == 'qe' | (!is.na(sd_method) & sd_method == 'qe')){
+    fit_qe <- estmeansd::qe.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
+    if (mean_method == 'qe'){
+      est.mean <- fit_qe$est.mean
+    }
+  }
+  if (mean_method == 'yang' | (!is.na(sd_method) & sd_method == 'yang')){
+    fit_yang <- metaBLUE::BLUE_s(X = quants, n = n, type = scenario)
+    if (mean_method == 'yang'){
+      est.mean <- fit_yang$muhat
+    }
+  }
+
+  if (mean_method %in% c('luo', 'shi_normal')){
+    est.mean <- metaBLUE::Luo.mean(X = quants, n = n, type = scenario)$muhat
+  } else if (mean_method == 'wan'){
+    if (scenario == 'S1'){
+      est.mean <- (min.val + 2 * med.val + max.val) / 4
+    } else if (scenario == 'S2'){
+      est.mean <- (q1.val + med.val + q3.val) / 3
+    } else if (scenario == 'S3'){
+      est.mean <- (min.val + 2 * q1.val + 2 * med.val + 2 * q3.val + max.val) / 8
+    }
+  } else if (mean_method == 'shi_lognormal'){
+    muhat <- metaBLUE::Luo.mean(X = log(quants), n = n, type = scenario)$muhat
+    if (scenario == 'S1'){
+      xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
+      sigma2hat1 <- ((log(max.val) - log(min.val)) / xi)^2 / (1.01 + 0.25 / (log(n))^2)
+      sigma4hat1 <- ((log(max.val) - log(min.val)) / xi)^4 / (1 + 2.23 * (log(n))^(-2))
+      est.mean <- exp(muhat + sigma2hat1 / 2) / (1 + 0.565 * sigma2hat1 / n + 0.37 * sigma4hat1 / n)
+    } else if (scenario == 'S2'){
+      eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
+      sigma2hat2 <- ((log(q3.val) - log(q1.val)) / eta)^2 / (1 + 1.58 / n)
+      sigma4hat2 <- ((log(q3.val) - log(q1.val)) / eta)^4 / (1 + 19.2 / n^1.2)
+      est.mean <- exp(muhat + sigma2hat2 / 2) / (1 + 0.57 * sigma2hat2 / n + 0.75 * sigma4hat2 / n)
+    } else if (scenario == 'S3'){
+      xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
+      eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
+      w3 <- 1 / (1 + 0.07 * n^0.6)
+      sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^2 /
+        (1 + 0.28 / (log(n))^2)
+      sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^4 /
+        (1 + 3.93 / n)
+      est.mean <- exp(muhat + sigma2hat3 / 2) / (1 + 0.405 * sigma2hat3 / n + 0.315 * sigma4hat3 / n)
+    }
+  }
+
+  if (se_method == 'bootstrap'){
+    if (mean_method == 'mln'){
+      est.se <- estmeansd::get_SE(fit_mln, nboot = nboot)$est.se
+    } else if (mean_method == 'bc'){
+      est.se <- estmeansd::get_SE(fit_bc, nboot = nboot)$est.se
+    } else if (mean_method == 'qe'){
+      est.se <- estmeansd::get_SE(fit_qe, nboot = nboot)$est.se
+    }
+  } else if (se_method == 'plugin'){
+    est.se <- sqrt(fit_yang$Var_mu)
+  } else if (se_method == 'naive'){
+    if (sd_method == 'mln'){
+      est.se <- fit_qe$est.sd / sqrt(n)
+    } else if (sd_method == 'bc'){
+      est.se <- fit_qe$est.sd / sqrt(n)
+    } else if (sd_method == 'qe'){
+      est.se <- fit_qe$est.sd / sqrt(n)
+    } else if (sd_method == 'yang'){
+      est.se <- fit_yang$sigmahat / sqrt(n)
+    }
+    else if (sd_method == 'shi_normal' & scenario == 'S3'){
+      theta1 <- (2 + 0.14 * n^0.6) * stats::qnorm((n - 0.375) / (n + 0.25))
+      theta2 <- (2 + 2 / (0.07 * n^0.6)) * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
+      est.se <- ((max.val - min.val) / theta1 + (q3.val - q1.val) / theta2) / sqrt(n)
+    } else if (sd_method %in% c('wan', 'luo', 'shi_normal')){
+      est.se <- metaBLUE::Wan.std(X = quants, n = n, type = scenario)$sigmahat / sqrt(n)
+    } else if (sd_method == 'shi_lognormal'){
+      muhat <- metaBLUE::Luo.mean(X = log(quants), n = n, type = scenario)$muhat
+      if (scenario == 'S1'){
+        xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
+        sigma2hat1 <- ((log(max.val) - log(min.val)) / xi)^2 / (1.01 + 0.25 / (log(n))^2)
+        sigma4hat1 <- ((log(max.val) - log(min.val)) / xi)^4 / (1 + 2.23 * (log(n))^(-2))
+        sigma2hat <- exp(2 * muhat + 2 * sigma2hat1) / (1 + 2.26 * sigma2hat1 / n + 4.92 * sigma4hat1 / n) -
+          exp(2 * muhat + sigma2hat1) / (1 + 2.26 * sigma2hat1 / n + 1.48 * sigma4hat1 / n)
+      } else if (scenario == 'S2'){
+        eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
+        sigma2hat2 <- ((log(q3.val) - log(q1.val)) / eta)^2 / (1 + 1.58 / n)
+        sigma4hat2 <- ((log(q3.val) - log(q1.val)) / eta)^4 / (1 + 19.2 / n^1.2)
+        sigma2hat <- exp(2 * muhat + 2 * sigma2hat2) / (1 + 2.28 * sigma2hat2 / n + 12 * sigma4hat2 / n) -
+          exp(2 * muhat + sigma2hat2) / (1 + 2.28 * sigma2hat2 / n + 3 * sigma4hat2 / n)
+      } else if (scenario == 'S3'){
+        xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
+        eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
+        w3 <- 1 / (1 + 0.07 * n^0.6)
+        sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^2 /
+          (1 + 0.28 / (log(n))^2)
+        sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^4 /
+          (1 + 3.93 / n)
+        sigma2hat <- exp(2 * muhat + 2 * sigma2hat3) / (1 + 1.62 * sigma2hat3 / n + 5.04 * sigma4hat3 / n) -
+          exp(2 * muhat + sigma2hat3) / (1 + 1.62 * sigma2hat3 / n + 1.26 * sigma4hat3 / n)
+      }
+      est.se <- sqrt(sigma2hat / n)
+    }
+  }
+
+  return(list(est.mean = est.mean, est.se = est.se))
 }
