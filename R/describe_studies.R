@@ -18,7 +18,7 @@
 #' \code{alpha.1.g1} \tab \eqn{\alpha_1} values from Ozturk and Balakrishnan (2020) (only applicable when \code{median_method="cd"}). \cr
 #' \code{alpha.2.g1} \tab \eqn{\alpha_2} values from Ozturk and Balakrishnan (2020) (only applicable when \code{median_method="cd"}). \cr}
 #' For two group studies, this data frame can also contain the following columns for the summary data of the second group: \code{min.g2}, \code{q1.g2}, \code{med.g2}, \code{q3.g2}, \code{max.g2}, \code{n.g2}, \code{mean.g2}, and \code{sd.g2}.
-#' @param method character string specifying the sets of summary statistics to consider. If this argument is set to \code{"cd"}, the summary statistics for the CD method (see C1/C2, C3, C4, C5 in \code{\link{ob}}) are considered. Otherwise, the S1, S2, S3, and S4 summary statistics described in \code{\link{qe}} are considered.
+#' @param method character string specifying the sets of summary statistics to consider. If this argument is set to \code{"cd"}, the summary statistics for the CD method (see C1/C2, C3, C4, C5 in \code{\link{cd}}) are considered. Otherwise, the S1, S2, S3, and S4 summary statistics described in \code{\link{qe}} are considered.
 #' @param group_labels vector of character strings specifying the names corresponding to groups 1 and 2, respectively. This argument is only applicable when the meta-analysis consists of two-group studies. By default, this argument is set to \code{c('Group 1', 'Group 2')}.
 #' @return an object of class \code{"describe_studies"}. The object is a list with the following components:
 #' \item{description}{data frame containing the results of the descriptive analyses.}
@@ -42,7 +42,7 @@ describe_studies <- function(df, method = 'qe',
                                               df[i, 'max.g1'], df[i, 'mean.g1'], df[i, 'sd.g1']),
                                  error = function(e) NA)
     } else {
-      scenario_g1[i] <- tryCatch(get.scenario.ob(df[i, 'q1.g1'], df[i, 'med.g1'], df[i, 'q3.g1'],
+      scenario_g1[i] <- tryCatch(get.scenario.cd(df[i, 'q1.g1'], df[i, 'med.g1'], df[i, 'q3.g1'],
                                                  df[i, 'mean.g1'], df[i, 'sd.g1'], df[i, 'med.var.g1'],
                                                  df[i, 'med.ci.lb.g1'], df[i, 'med.ci.ub.g1'], df[i, 'alpha.1.g1'],
                                                  df[i, 'alpha.2.g1']),

@@ -5,10 +5,11 @@
 -   Added the `metamean()` function, which can apply several methods to
     estimate study-specific means and their standard errors in order to
     estimate the pooled (difference of) means
--   Added the `ob()` function, which applies the method of Ozturk and
-    Balakrishnan (2020) to estimate the pooled median
+-   Added the `cd()` function, which applies the Confidence Distribution
+    method of Ozturk and Balakrishnan (2020) to estimate the pooled
+    median
 -   Added the `metamedian()` function, which is a wrapper for the
-    `qe()`, `ob()`, and `pool.med()` functions.
+    `qe()`, `cd()`, and `pool.med()` functions.
 -   Added the `describe_studies()` function for performing descriptive
     analyses
 

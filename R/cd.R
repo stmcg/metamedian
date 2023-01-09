@@ -1,6 +1,6 @@
-#' Meta-Analysis via the approach of Ozturk and Balakrishnan
+#' Meta-Analysis via the confidence distribution approach
 #'
-#' The function applies the approach of Ozturk and Balakrishnan (2020) to meta-analyze one-group studies where each study reports one of the following summary measures: \itemize{
+#' The function applies the confidence distribution (CD) approach of Ozturk and Balakrishnan (2020) to meta-analyze one-group studies where each study reports one of the following summary measures: \itemize{
 #' \item C1 (and C2): lower and upper bounds of a confidence interval around the median, and coverage probability
 #' \item C3: median, variance estimate of the median, and sample size
 #' \item C4: mean, standard deviation, and sample size.
@@ -43,13 +43,13 @@
 #' q3.vals <- c(10.2, 13.0, 8.3, 8.2, 9.9)
 #' n.vals <- c(100, 92, 221, 81, 42)
 #'
-#' ## Meta-analyze studies via OB method
-#' ob(q1 = q1.vals, med = med.vals, q3 = q3.vals, n = n.vals)
+#' ## Meta-analyze studies via CD method
+#' cd(q1 = q1.vals, med = med.vals, q3 = q3.vals, n = n.vals)
 #'
 #'
 #' @export
 
-ob <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
+cd <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
                alpha.1, alpha.2, pooled.median.ci.level = 0.95, method = 'RE',
                pool_studies = FALSE) {
   all.data.args.names <- c("q1", "med", "q3", "n", "mean",
@@ -80,7 +80,7 @@ ob <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
   yi <- vi <- rep(NA, length = n_studies)
 
   for (i in 1:n_studies){
-    scenario <- get.scenario.ob(q1 = df$q1[i], med = df$med[i], q3 = df$q3[i], mean = df$mean[i], sd = df$sd[i],
+    scenario <- get.scenario.cd(q1 = df$q1[i], med = df$med[i], q3 = df$q3[i], mean = df$mean[i], sd = df$sd[i],
                                 med.var = df$med.var[i], med.ci.lb = df$med.ci.lb[i], med.ci.ub = df$med.ci.ub[i],
                                 alpha.1 = df$alpha.1[i], alpha.2 = df$alpha.2[i])
 
@@ -143,7 +143,7 @@ Jacknife <- function(yi, vi, pooled_est){
   return(JVE)
 }
 
-get.scenario.ob <- function(q1, med, q3, mean, sd, med.var, med.ci.lb, med.ci.ub,
+get.scenario.cd <- function(q1, med, q3, mean, sd, med.var, med.ci.lb, med.ci.ub,
                             alpha.1, alpha.2){
   if (!is.na(med.ci.lb) & !is.na(med.ci.ub) & !is.na(alpha.1) & !is.na(alpha.2)){
     return('C1')
@@ -155,6 +155,6 @@ get.scenario.ob <- function(q1, med, q3, mean, sd, med.var, med.ci.lb, med.ci.ub
     return('C5')
   } else {
     stop('Summary measures not in appropriate form. See documentation for
-         appropriate forms for the OB approach.')
+         appropriate forms for the CD approach.')
   }
 }
