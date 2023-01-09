@@ -44,6 +44,7 @@
 #' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
 #' @param nboot integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.
+#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
@@ -61,7 +62,7 @@
 #' @export
 
 metamean <- function(df, mean_method = 'mln', se_method = 'bootstrap',
-                     sd_method = NA, nboot = 1e3, ...) {
+                     sd_method = NA, nboot = 1e3, pool_studies = TRUE, ...) {
 
   df <- check_and_clean_df(df = df, method = mean_method)
   n_studies <- nrow(df)
@@ -113,12 +114,15 @@ metamean <- function(df, mean_method = 'mln', se_method = 'bootstrap',
     yi <- mean.g1 - mean.g2
     sei <- sqrt(se.g1^2 + se.g2^2)
   }
-
-  return(metafor::rma.uni(yi = yi, sei = sei, ...))
+  if (pool_studies){
+    return(metafor::rma.uni(yi = yi, sei = sei, ...))
+  } else {
+    return(list(yi = yi, sei = sei))
+  }
 }
 
 check_and_clean_df <- function(df, method){
-  if (method != 'ob'){
+  if (method != 'cd'){
     all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
                                'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
   } else {

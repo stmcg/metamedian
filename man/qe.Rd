@@ -23,6 +23,7 @@ qe(
   sd.g2,
   single.family = FALSE,
   loc.shift = FALSE,
+  pool_studies = TRUE,
   ...
 )
 }
@@ -62,6 +63,8 @@ qe(
 \item{single.family}{logical scalar indicating that for two-group studies, the parametric family of distributions is assumed to be the same across both groups (the default is \code{FALSE}). See 'Details' of \code{\link{qe.study.level}}.}
 
 \item{loc.shift}{logical scalar indicating that for two-group studies, distributions are assumed to only differ by a location shift (the default is \code{FALSE}). See 'Details' of \code{\link{qe.study.level}}.}
+
+\item{pool_studies}{logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.}
 
 \item{...}{optional arguments for pooling. See documentation of \code{\link[metafor]{rma.uni}}.}
 }

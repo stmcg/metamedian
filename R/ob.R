@@ -23,6 +23,7 @@
 #' @param alpha.2 vector of the study-specific \eqn{\alpha_2} values from Ozturk and Balakrishnan (2020)
 #' @param pooled.median.ci.level optional numeric scalar indicating the desired coverage probability for the pooled median estimate. The default is \code{0.95}.
 #' @param method character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.
+#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #'
 #' @return A list with components
 #' \item{pooled.est}{Pooled estimate of the median}
@@ -49,7 +50,8 @@
 #' @export
 
 ob <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
-               alpha.1, alpha.2, pooled.median.ci.level = 0.95, method = 'RE') {
+               alpha.1, alpha.2, pooled.median.ci.level = 0.95, method = 'RE',
+               pool_studies = FALSE) {
   all.data.args.names <- c("q1", "med", "q3", "n", "mean",
                            "sd", "med.var", "med.ci.lb", "med.ci.ub", "alpha.1",
                            "alpha.2")
@@ -103,26 +105,31 @@ ob <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
     }
   }
 
-  pooled_est_FE <- stats::weighted.mean(x = yi, w = 1 / vi)
-  if (method == 'FE'){
-    pooled_est <- pooled_est_FE
-    pooled_est_var <- Jacknife(yi, vi, pooled_est)
-    tausq_est <- NULL
-  } else if (method == 'RE'){
-    Q <- sum((yi - pooled_est_FE)^2 / vi)  # computation of Q^2 in section  3 of the paper
-    A1 <- sum(1 / vi)
-    C <- A1 - sum((1 / vi)^2) / A1
-    tausq_est <- max((Q - (n_studies - 1)) / C, 0)
-    pooled_est <- stats::weighted.mean(x = yi, w = 1 / (vi + tausq_est))
-    pooled_est_var <- Jacknife(yi, vi + tausq_est, pooled_est)
+  if (pool_studies){
+    pooled_est_FE <- stats::weighted.mean(x = yi, w = 1 / vi)
+    if (method == 'FE'){
+      pooled_est <- pooled_est_FE
+      pooled_est_var <- Jacknife(yi, vi, pooled_est)
+      tausq_est <- NULL
+    } else if (method == 'RE'){
+      Q <- sum((yi - pooled_est_FE)^2 / vi)  # computation of Q^2 in section  3 of the paper
+      A1 <- sum(1 / vi)
+      C <- A1 - sum((1 / vi)^2) / A1
+      tausq_est <- max((Q - (n_studies - 1)) / C, 0)
+      pooled_est <- stats::weighted.mean(x = yi, w = 1 / (vi + tausq_est))
+      pooled_est_var <- Jacknife(yi, vi + tausq_est, pooled_est)
+    }
+
+    ci.lb <- stats::qt(alpha / 2, n_studies - 1) * sqrt(pooled_est_var) + pooled_est
+    ci.ub <- stats::qt(1 - alpha / 2, n_studies - 1) * sqrt(pooled_est_var) + pooled_est
+    output <- list(pooled.est = pooled_est, pooled.est.var = pooled_est_var,
+                   ci.lb = ci.lb, ci.ub = ci.ub, tausq.est = tausq_est,
+                   yi = yi, vi = vi)
+    return(output)
+  } else {
+    return(list(yi = yi, sei = sqrt(vi)))
   }
 
-  ci.lb <- stats::qt(alpha / 2, n_studies - 1) * sqrt(pooled_est_var) + pooled_est
-  ci.ub <- stats::qt(1 - alpha / 2, n_studies - 1) * sqrt(pooled_est_var) + pooled_est
-  output <- list(pooled.est = pooled_est, pooled.est.var = pooled_est_var,
-                 ci.lb = ci.lb, ci.ub = ci.ub, tausq.est = tausq_est,
-                 yi = yi, vi = vi)
-  return(output)
 }
 
 Jacknife <- function(yi, vi, pooled_est){

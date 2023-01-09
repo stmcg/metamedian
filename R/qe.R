@@ -30,6 +30,7 @@
 #' @param sd.g2 vector of study-specific sample standard deviation values of the second group for two-group studies. See 'Details'.
 #' @param single.family logical scalar indicating that for two-group studies, the parametric family of distributions is assumed to be the same across both groups (the default is \code{FALSE}). See 'Details' of \code{\link{qe.study.level}}.
 #' @param loc.shift logical scalar indicating that for two-group studies, distributions are assumed to only differ by a location shift (the default is \code{FALSE}). See 'Details' of \code{\link{qe.study.level}}.
+#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... optional arguments for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 
 #' @return An object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
@@ -93,7 +94,8 @@
 
 qe <- function(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1,
                min.g2, q1.g2, med.g2, q3.g2, max.g2, n.g2, mean.g2, sd.g2,
-               single.family = FALSE, loc.shift = FALSE, ...) {
+               single.family = FALSE, loc.shift = FALSE, pool_studies = TRUE,
+               ...) {
   all.data.args.names <- c("min.g1", "q1.g1", "med.g1", "q3.g1", "max.g1",
                            "n.g1", "mean.g1", "sd.g1", "min.g2", "q1.g2",
                            "med.g2", "q3.g2", "max.g2", "n.g2", "mean.g2",
@@ -129,7 +131,14 @@ qe <- function(min.g1, q1.g1, med.g1, q3.g1, max.g1, n.g1, mean.g1, sd.g1,
     stop("All studies must have the same study type (i.e.,
          all studies must be one-group or all studies must be two-group)")
   }
-  output <- metafor::rma.uni(yi = unlist(res["effect.size", ]),
-                             vi = unlist(res["var", ]), ...)
+
+  if (pool_studies){
+    output <- metafor::rma.uni(yi = unlist(res["effect.size", ]),
+                               vi = unlist(res["var", ]), ...)
+  } else {
+    output <- list(yi = unlist(res["effect.size", ]),
+                   sei = sqrt(unlist(res["var", ])))
+  }
+
   return(output)
 }

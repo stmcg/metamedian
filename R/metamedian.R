@@ -29,6 +29,7 @@
 #' @param norm.approx (only applicable when \code{median_method} is set to \code{mm} or \code{wm}) logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval. The default is \code{TRUE}.
 #' @param coverage.prob (only applicable when \code{median_method} is set to \code{mm}, \code{wm}, or \code{ob}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate The default is \code{0.95}.
 #' @param method_ob (only applicable when \code{median_method} is set to \code{ob}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.
+#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... (only applicable when \code{median_method} is set to \code{qe}) optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni" (when \code{median_method} is set to \code{qe}) or a list (when \code{median_method} is set to \code{mm}, \code{wm}, or \code{ob}). For additional details, see \code{\link[metafor]{rma.uni}} (when \code{median_method} is set to \code{qe}), \code{\link{pool.med}} (when \code{median_method} is set to \code{mm} or \code{wm}), and \code{\link{ob}} (when \code{median_method} is set to \code{ob}).
@@ -39,7 +40,7 @@
 
 metamedian <- function(df, median_method = 'qe', single.family = FALSE,
                        loc.shift = FALSE, norm.approx = TRUE, coverage.prob = 0.95,
-                       method_ob = 'RE', ...) {
+                       method_ob = 'RE', pool_studies = TRUE, ...) {
   df <- check_and_clean_df(df = df, method = median_method)
   if (!median_method %in% c('qe', 'mm', 'wm', 'ob')){
     stop("median_method must be set to 'mm', 'wm', 'qe', or 'ob'")
@@ -49,23 +50,29 @@ metamedian <- function(df, median_method = 'qe', single.family = FALSE,
     # QE method
     res <- qe(min.g1 = df$min.g1, q1.g1 = df$q1.g1, med.g1 = df$med.g1, q3.g1 = df$q3.g1, max.g1 = df$max.g1, n.g1 = df$n.g1, mean.g1 = df$mean.g1, sd.g1 = df$sd.g1,
               min.g2 = df$min.g2, q1.g2 = df$q1.g2, med.g2 = df$med.g2, q3.g2 = df$q3.g2, max.g2 = df$max.g2, n.g2 = df$n.g2, mean.g2 = df$mean.g2, sd.g2 = df$sd.g2,
-              single.family = single.family, loc.shift = loc.shift, ...)
+              single.family = single.family, loc.shift = loc.shift, pool_studies = pool_studies, ...)
   } else if (median_method == 'ob') {
     res <- ob(q1 = df$q1.g1, med = df$med.g1, q3 = df$q3.g1, n = df$n.g1, mean = df$mean.g1, sd = df$sd.g1,
               med.var = df$med.var.g1, med.ci.lb = df$med.ci.lb.g1, med.ci.ub = df$med.ci.ub.g1,
               alpha.1 = df$alpha.1.g1, alpha.2 = df$alpha.2.g1, pooled.median.ci.level = coverage.prob,
-              method = method_ob)
+              method = method_ob, pool_studies = pool_studies)
   } else {
     # MM and WM methods
     one_group <- all(is.na(df[, c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')]))
     if (one_group){
       yi <- ifelse(!is.na(df$med.g1), df$med.g1, df$mean.g1)
+      if (!pool_studies){
+        return(list(yi = yi, sei = NULL))
+      }
       if (median_method == 'wm'){
         wi <- df$n.g1
       }
     } else {
       yi <- ifelse(!is.na(df$med.g1), df$med.g1, df$mean.g1) -
         ifelse(!is.na(df$med.g2), df$med.g2, df$mean.g2)
+      if (!pool_studies){
+        return(list(yi = yi, sei = NULL))
+      }
       if (median_method == 'wm'){
         wi <- df$n.g1 + df$n.g2
       }
