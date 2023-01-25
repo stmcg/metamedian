@@ -31,7 +31,7 @@ Additionally, this package implements a number of methods to estimate the study-
 - [McGrath et al. (2020b)](https://journals.sagepub.com/doi/full/10.1177/0962280219889080)
 - [Cai et al. (2021)](https://journals.sagepub.com/doi/full/10.1177/09622802211047348)
 - [Yang et al. (2022)](https://www.tandfonline.com/doi/full/10.1080/02664763.2021.1967890)
-- [McGrath et al. (In press)](https://arxiv.org/abs/2206.14386)
+- [McGrath et al. (2023)](https://doi.org/10.1177/09622802221139233)
 
 ## Installation
 

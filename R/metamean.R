@@ -32,7 +32,7 @@
 #' @param se_method character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
 #' \tabular{ll}{
 #' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr
-#' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (In press). \cr
+#' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (2023). \cr
 #' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr}
 #' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
 #' \tabular{ll}{
@@ -57,7 +57,7 @@
 #' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
 #' @references Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
 #' @references Yang X., Hutson A.D., and Wang D. (2022). A generalized BLUE approach for combining location and scale information in a meta-analysis. \emph{Journal of Applied Statistics}. \strong{49}(15):3846-3867.
-#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (In press). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}.
+#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (2023). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}. \strong{32}(2):373-388.
 #'
 #' @examples
 #' \donttest{
