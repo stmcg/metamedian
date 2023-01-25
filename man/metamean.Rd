@@ -40,9 +40,9 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{se_method}{character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
 \tabular{ll}{
+\code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr
 \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (In press). \cr
-\code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr
-\code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr}}
+\code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr}}
 
 \item{sd_method}{character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
 \tabular{ll}{
@@ -71,6 +71,21 @@ The function meta-analyzes one-group or two-group studies where each study repor
 \item S4: mean, standard deivation, and sample size.
  }
 This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. When studies report S1, S2, or S3 summary data, a number of approaches can be applied to estimate the study-specific means and their standard errors. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
+}
+\examples{
+\donttest{
+
+## Method for Unknown Non-Normal Distributions
+metamean(df = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
+
+## Box-Cox method
+metamean(df = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
+
+## Quantile Matching Estimation method
+metamean(df = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
+
+}
+
 }
 \references{
 Hozo S.P., Djulbegovic B., and Hozo I. (2005). Estimating the mean and variance from the median, range, and the size of a sample. \emph{BMC Medical Research Methodology}. \strong{5}(1):1-10.

@@ -28,6 +28,9 @@
 #'
 #' @references Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
 #'
+#' @examples
+#' describe_studies(df = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
+#'
 #' @export
 describe_studies <- function(df, method = 'qe',
                              group_labels = c('Group 1', 'Group 2')){

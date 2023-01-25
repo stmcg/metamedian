@@ -38,6 +38,10 @@ The results are printed with the \code{\link{print.describe_studies}} function.
 \description{
 This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
 }
+\examples{
+describe_studies(df = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
+
+}
 \references{
 Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
 }

@@ -61,6 +61,17 @@ an object of class "rma.uni" (when \code{median_method} is set to \code{"qe"}) o
 \description{
 This function is a wrapper function for the \code{\link{qe}}, \code{\link{cd}}, and \code{\link{pool.med}} functions. The function implements the methods of McGrath et al. (2019), McGrath et al. (2020), and Ozturk and Balakrishnan (2020) to estimate the pooled (difference of) medians in a meta-analysis. Specifically, the function implements the (weighted) median of medians method, the Ozturk and Balakrishnan (2020) method, and the quantile matching estimation method to meta-analyze one-group studies; the function implements the (weighted) median of the difference of medians method and quantile matching estimation method to meta-analyze two-group studies.
 }
+\examples{
+## Quantile Matching Estimation method
+metamedian(df = dat.Age_Mortality, median_method = "qe")
+
+## Median of the Difference of Medians method
+metamedian(df = dat.Age_Mortality, median_method = "mm")
+
+## Weighted Median of the Difference of Medians method
+metamedian(df = dat.Age_Mortality, median_method = "wm")
+
+}
 \references{
 McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2019). One-sample aggregate data meta-analysis of medians. \emph{Statistics in Medicine}, \strong{38}, 969-984.
 

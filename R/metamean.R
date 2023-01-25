@@ -31,9 +31,9 @@
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
 #' @param se_method character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
 #' \tabular{ll}{
+#' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr
 #' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (In press). \cr
-#' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr
-#' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr}
+#' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr}
 #' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
 #' \tabular{ll}{
 #' \code{'wan'} \tab Method of Wan et al. (2014). \cr
@@ -58,7 +58,21 @@
 #' @references Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
 #' @references Yang X., Hutson A.D., and Wang D. (2022). A generalized BLUE approach for combining location and scale information in a meta-analysis. \emph{Journal of Applied Statistics}. \strong{49}(15):3846-3867.
 #' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (In press). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}.
-
+#'
+#' @examples
+#' \donttest{
+#'
+#' ## Method for Unknown Non-Normal Distributions
+#' metamean(df = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
+#'
+#' ## Box-Cox method
+#' metamean(df = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
+#'
+#' ## Quantile Matching Estimation method
+#' metamean(df = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
+#'
+#' }
+#'
 #' @export
 
 metamean <- function(df, mean_method = 'mln', se_method = 'bootstrap',
@@ -137,7 +151,7 @@ check_and_clean_df <- function(df, method){
   # Checking class of summary data
   for (col in all_possible_colnames){
     if (!class(df[, col]) %in% c('numeric', 'integer')){
-      if (class(df[, col]) == 'logical' | all(is.na(df[, col]))){
+      if (class(df[, col]) %in% 'logical' | all(is.na(df[, col]))){
         next()
       }
       stop('Summary data must be of class numeric or integer. Column ', col, 'is not of one of these classes')
