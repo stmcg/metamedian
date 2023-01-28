@@ -2,7 +2,7 @@
 #'
 #' This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
 #'
-#' @param df data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+#' @param data data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{
 #' \code{min.g1} \tab minimum value. \cr
 #' \code{q1.g1} \tab first quartile. \cr
@@ -29,12 +29,12 @@
 #' @references Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
 #'
 #' @examples
-#' describe_studies(df = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
+#' describe_studies(data = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
 #'
 #' @export
-describe_studies <- function(df, method = 'qe',
+describe_studies <- function(data, method = 'qe',
                              group_labels = c('Group 1', 'Group 2')){
-  df <- check_and_clean_df(df = df, method = method)
+  df <- check_and_clean_df(df = data, method = method)
   n_studies <- nrow(df)
   g2_names <- c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
   one_group <- all(!g2_names %in% colnames(df)) || all(is.na(df[, g2_names]))

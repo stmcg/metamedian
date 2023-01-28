@@ -8,7 +8,7 @@
 #'  }
 #' This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. When studies report S1, S2, or S3 summary data, a number of approaches can be applied to estimate the study-specific means and their standard errors. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
 #'
-#' @param df data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+#' @param data data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{
 #' \code{min.g1} \tab minimum value. \cr
 #' \code{q1.g1} \tab first quartile. \cr
@@ -63,22 +63,22 @@
 #' \donttest{
 #'
 #' ## Method for Unknown Non-Normal Distributions
-#' metamean(df = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
 #'
 #' ## Box-Cox method
-#' metamean(df = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
 #'
 #' ## Quantile Matching Estimation method
-#' metamean(df = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
 #'
 #' }
 #'
 #' @export
 
-metamean <- function(df, mean_method = 'mln', se_method = 'bootstrap',
+metamean <- function(data, mean_method = 'mln', se_method = 'bootstrap',
                      sd_method = NA, nboot = 1e3, pool_studies = TRUE, ...) {
 
-  df <- check_and_clean_df(df = df, method = mean_method)
+  df <- check_and_clean_df(df = data, method = mean_method)
   n_studies <- nrow(df)
 
   res <- check_mean_se_methods(mean_method = mean_method, se_method = se_method,

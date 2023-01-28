@@ -4,10 +4,10 @@
 \alias{describe_studies}
 \title{Descriptive statistics for meta-analyzing studies reporting medians}
 \usage{
-describe_studies(df, method = "qe", group_labels = c("Group 1", "Group 2"))
+describe_studies(data, method = "qe", group_labels = c("Group 1", "Group 2"))
 }
 \arguments{
-\item{df}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+\item{data}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 \tabular{ll}{
 \code{min.g1} \tab minimum value. \cr
 \code{q1.g1} \tab first quartile. \cr
@@ -39,7 +39,7 @@ The results are printed with the \code{\link{print.describe_studies}} function.
 This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
 }
 \examples{
-describe_studies(df = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
+describe_studies(data = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
 
 }
 \references{

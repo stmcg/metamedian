@@ -5,7 +5,7 @@
 \title{Meta-Analysis of the (difference of) means}
 \usage{
 metamean(
-  df,
+  data,
   mean_method = "mln",
   se_method = "bootstrap",
   sd_method = NA,
@@ -15,7 +15,7 @@ metamean(
 )
 }
 \arguments{
-\item{df}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+\item{data}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 \tabular{ll}{
 \code{min.g1} \tab minimum value. \cr
 \code{q1.g1} \tab first quartile. \cr
@@ -76,13 +76,13 @@ This function estimates the study-specific means and their standard errors from 
 \donttest{
 
 ## Method for Unknown Non-Normal Distributions
-metamean(df = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
+metamean(data = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
 
 ## Box-Cox method
-metamean(df = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
+metamean(data = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
 
 ## Quantile Matching Estimation method
-metamean(df = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
+metamean(data = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
 
 }
 

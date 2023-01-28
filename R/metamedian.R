@@ -2,7 +2,7 @@
 #'
 #' This function is a wrapper function for the \code{\link{qe}}, \code{\link{cd}}, and \code{\link{pool.med}} functions. The function implements the methods of McGrath et al. (2019), McGrath et al. (2020), and Ozturk and Balakrishnan (2020) to estimate the pooled (difference of) medians in a meta-analysis. Specifically, the function implements the (weighted) median of medians method, the Ozturk and Balakrishnan (2020) method, and the quantile matching estimation method to meta-analyze one-group studies; the function implements the (weighted) median of the difference of medians method and quantile matching estimation method to meta-analyze two-group studies.
 #'
-#' @param df data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+#' @param data data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{
 #' \code{min.g1} \tab minimum value. \cr
 #' \code{q1.g1} \tab first quartile. \cr
@@ -39,20 +39,20 @@
 #'
 #' @examples
 #' ## Quantile Matching Estimation method
-#' metamedian(df = dat.Age_Mortality, median_method = "qe")
+#' metamedian(data = dat.Age_Mortality, median_method = "qe")
 #'
 #' ## Median of the Difference of Medians method
-#' metamedian(df = dat.Age_Mortality, median_method = "mm")
+#' metamedian(data = dat.Age_Mortality, median_method = "mm")
 #'
 #' ## Weighted Median of the Difference of Medians method
-#' metamedian(df = dat.Age_Mortality, median_method = "wm")
+#' metamedian(data = dat.Age_Mortality, median_method = "wm")
 #'
 #' @export
 
-metamedian <- function(df, median_method = 'qe', single.family = FALSE,
+metamedian <- function(data, median_method = 'qe', single.family = FALSE,
                        loc.shift = FALSE, norm.approx = TRUE, coverage.prob = 0.95,
                        method_cd = 'RE', pool_studies = TRUE, ...) {
-  df <- check_and_clean_df(df = df, method = median_method)
+  df <- check_and_clean_df(df = data, method = median_method)
   if (!median_method %in% c('qe', 'mm', 'wm', 'cd')){
     stop("median_method must be set to 'mm', 'wm', 'qe', or 'cd'")
   }

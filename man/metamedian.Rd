@@ -5,7 +5,7 @@
 \title{Meta-Analysis of the (difference of) medians}
 \usage{
 metamedian(
-  df,
+  data,
   median_method = "qe",
   single.family = FALSE,
   loc.shift = FALSE,
@@ -17,7 +17,7 @@ metamedian(
 )
 }
 \arguments{
-\item{df}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
+\item{data}{data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 \tabular{ll}{
 \code{min.g1} \tab minimum value. \cr
 \code{q1.g1} \tab first quartile. \cr
@@ -63,13 +63,13 @@ This function is a wrapper function for the \code{\link{qe}}, \code{\link{cd}}, 
 }
 \examples{
 ## Quantile Matching Estimation method
-metamedian(df = dat.Age_Mortality, median_method = "qe")
+metamedian(data = dat.Age_Mortality, median_method = "qe")
 
 ## Median of the Difference of Medians method
-metamedian(df = dat.Age_Mortality, median_method = "mm")
+metamedian(data = dat.Age_Mortality, median_method = "mm")
 
 ## Weighted Median of the Difference of Medians method
-metamedian(df = dat.Age_Mortality, median_method = "wm")
+metamedian(data = dat.Age_Mortality, median_method = "wm")
 
 }
 \references{
