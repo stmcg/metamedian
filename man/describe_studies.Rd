@@ -39,7 +39,7 @@ The results are printed with the \code{\link{print.describe_studies}} function.
 This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
 }
 \examples{
-describe_studies(data = dat.Age_Mortality, group_labels = c("Nonsurvivor Group", "Survivor Group"))
+describe_studies(data = dat.age, group_labels = c("Nonsurvivor Group", "Survivor Group"))
 
 }
 \references{

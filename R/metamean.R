@@ -63,13 +63,13 @@
 #' \donttest{
 #'
 #' ## Method for Unknown Non-Normal Distributions
-#' metamean(data = dat.Age_Mortality, mean_method = "mln", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.age, mean_method = "mln", se_method = "bootstrap", nboot = 50)
 #'
 #' ## Box-Cox method
-#' metamean(data = dat.Age_Mortality, mean_method = "bc", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.age, mean_method = "bc", se_method = "bootstrap", nboot = 50)
 #'
 #' ## Quantile Matching Estimation method
-#' metamean(data = dat.Age_Mortality, mean_method = "qe", se_method = "bootstrap", nboot = 100)
+#' metamean(data = dat.age, mean_method = "qe", se_method = "bootstrap", nboot = 50)
 #'
 #' }
 #'

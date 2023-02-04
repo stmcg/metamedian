@@ -63,13 +63,13 @@ This function is a wrapper function for the \code{\link{qe}}, \code{\link{cd}}, 
 }
 \examples{
 ## Quantile Matching Estimation method
-metamedian(data = dat.Age_Mortality, median_method = "qe")
+metamedian(data = dat.age, median_method = "qe")
 
 ## Median of the Difference of Medians method
-metamedian(data = dat.Age_Mortality, median_method = "mm")
+metamedian(data = dat.age, median_method = "mm")
 
 ## Weighted Median of the Difference of Medians method
-metamedian(data = dat.Age_Mortality, median_method = "wm")
+metamedian(data = dat.age, median_method = "wm")
 
 }
 \references{

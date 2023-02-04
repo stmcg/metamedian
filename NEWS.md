@@ -12,8 +12,8 @@
     `qe()`, `cd()`, and `pool.med()` functions.
 -   Added the `describe_studies()` function for performing descriptive
     analyses
--   Added the `dat.Age_Mortality` data set and corresponding example
-    applications in the documentation
+-   Added the `dat.age` and `dat.asat` data sets and corresponding
+    example applications in the documentation
 
 ### Changes in Version 0.1.6 (2022-06-18)
 
