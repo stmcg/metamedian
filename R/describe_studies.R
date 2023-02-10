@@ -78,62 +78,67 @@ describe_studies <- function(data, method = 'qe',
 
   # Bowley skewness descriptions
   description_bowley <- matrix(NA, nrow = 7, ncol = ncols)
-  rownames(description_bowley) <- c('Bowley skewness', '  Minimum', '  First quartile',
-                                    '  Median', '  Mean', '  Third quartile', '  Maximum')
+  rownames(description_bowley) <- c('Bowley skewness', '  Minimum:', '  First quartile:',
+                                    '  Median:', '  Mean:', '  Third quartile:', '  Maximum:')
   description_bowley['Bowley skewness', 1] <- ''
-  description_bowley['  Minimum', 1] <- myround(min(bowley_g1))
-  description_bowley['  First quartile', 1] <- myround(stats::quantile(bowley_g1, probs = 0.25))
-  description_bowley['  Median', 1] <- myround(stats::median(bowley_g1))
-  description_bowley['  Mean', 1] <- myround(mean(bowley_g1))
-  description_bowley['  Third quartile', 1] <- myround(stats::quantile(bowley_g1, probs = 0.75))
-  description_bowley['  Maximum', 1] <- myround(max(bowley_g1))
+  description_bowley['  Minimum:', 1] <- myround(min(bowley_g1))
+  description_bowley['  First quartile:', 1] <- myround(stats::quantile(bowley_g1, probs = 0.25))
+  description_bowley['  Median:', 1] <- myround(stats::median(bowley_g1))
+  description_bowley['  Mean:', 1] <- myround(mean(bowley_g1))
+  description_bowley['  Third quartile:', 1] <- myround(stats::quantile(bowley_g1, probs = 0.75))
+  description_bowley['  Maximum:', 1] <- myround(max(bowley_g1))
   if (!one_group){
     description_bowley['Bowley skewness', 2] <- ''
-    description_bowley['  Minimum', 2] <- myround(min(bowley_g2))
-    description_bowley['  First quartile', 2] <- myround(stats::quantile(bowley_g2, probs = 0.25))
-    description_bowley['  Median', 2] <- myround(stats::median(bowley_g2))
-    description_bowley['  Mean', 2] <- myround(mean(bowley_g2))
-    description_bowley['  Third quartile', 2] <- myround(stats::quantile(bowley_g2, probs = 0.75))
-    description_bowley['  Maximum', 2] <- myround(max(bowley_g2))
+    description_bowley['  Minimum:', 2] <- myround(min(bowley_g2))
+    description_bowley['  First quartile:', 2] <- myround(stats::quantile(bowley_g2, probs = 0.25))
+    description_bowley['  Median:', 2] <- myround(stats::median(bowley_g2))
+    description_bowley['  Mean:', 2] <- myround(mean(bowley_g2))
+    description_bowley['  Third quartile:', 2] <- myround(stats::quantile(bowley_g2, probs = 0.75))
+    description_bowley['  Maximum:', 2] <- myround(max(bowley_g2))
   }
 
   # Number of studies descriptions
   if (method == 'cd'){
-    description <- matrix(NA, nrow = 6, ncol = ncols)
-    rownames(description) <- c('N. studies',
-                               'N. studies reporting the median',
-                               '  N. studies reporting C1/C2',
-                               '  N. studies reporting C3',
-                               '  N. studies reporting C5',
-                               'N. studies reporting the mean, sd, and n (C4)')
-    description['N. studies', 1] <- n_studies
-    description['N. studies reporting the median', 1] <- sum(!is.na(df$med.g1))
-    description['  N. studies reporting C1/C2', 1] <- sum(scenario_g1 == 'C1', na.rm = TRUE)
-    description['  N. studies reporting C3', 1] <- sum(scenario_g1 == 'C3', na.rm = TRUE)
-    description['  N. studies reporting C5', 1] <- sum(scenario_g1 == 'C5', na.rm = TRUE)
-    description['N. studies reporting the mean, sd, and n (C4)', 1] <- sum(scenario_g1 == 'C4', na.rm = TRUE)
+    description <- matrix(NA, nrow = 7, ncol = ncols)
+    rownames(description) <- c('N. studies:',
+                               'N. studies reporting the median:',
+                               '  N. studies reporting C1/C2 (med, CI bounds, coverage):',
+                               '  N. studies reporting C3 (med, sampling variance):',
+                               '  N. studies reporting C5 (q1, med, q3, n):',
+                               'N. studies reporting the mean:',
+                               'N. studies reporting C4 (mean, sd, n):')
+    description['N. studies:', 1] <- n_studies
+    description['N. studies reporting the median:', 1] <- sum(!is.na(df$med.g1))
+    description['  N. studies reporting C1/C2 (med, CI bounds, coverage):', 1] <- sum(scenario_g1 == 'C1', na.rm = TRUE)
+    description['  N. studies reporting C3 (med, sampling variance):', 1] <- sum(scenario_g1 == 'C3', na.rm = TRUE)
+    description['  N. studies reporting C5 (q1, med, q3, n):', 1] <- sum(scenario_g1 == 'C5', na.rm = TRUE)
+    description['N. studies reporting the mean:', 1] <- sum(!is.na(df$mean.g1))
+    description['  N. studies reporting C4 (mean, sd, n):', 1] <- sum(scenario_g1 == 'C4', na.rm = TRUE)
 
   } else {
-    description <- matrix(NA, nrow = 6, ncol = ncols)
-    rownames(description) <- c('N. studies',
-                               'N. studies reporting the median',
-                               '  N. studies reporting S1',
-                               '  N. studies reporting S2',
-                               '  N. studies reporting S3',
-                               'N. studies reporting the mean, sd, and n')
-    description['N. studies', 1] <- n_studies
-    description['N. studies reporting the median', 1] <- sum(!is.na(df$med.g1))
-    description['  N. studies reporting S1', 1] <- sum(scenario_g1 == 'S1', na.rm = TRUE)
-    description['  N. studies reporting S2', 1] <- sum(scenario_g1 == 'S2', na.rm = TRUE)
-    description['  N. studies reporting S3', 1] <- sum(scenario_g1 == 'S3', na.rm = TRUE)
-    description['N. studies reporting the mean, sd, and n', 1] <- sum(scenario_g1 == 'S4', na.rm = TRUE)
+    description <- matrix(NA, nrow = 7, ncol = ncols)
+    rownames(description) <- c('N. studies:',
+                               'N. studies reporting the median:',
+                               '  N. studies reporting S1 (min, med, max, n):',
+                               '  N. studies reporting S2 (q1, med, q3, n):',
+                               '  N. studies reporting S3 (min, q1, med, q3, max, n):',
+                               'N. studies reporting the mean:',
+                               '  N. studies reporting the mean, sd, and n:')
+    description['N. studies:', 1] <- n_studies
+    description['N. studies reporting the median:', 1] <- sum(!is.na(df$med.g1))
+    description['  N. studies reporting S1 (min, med, max, n):', 1] <- sum(scenario_g1 == 'S1', na.rm = TRUE)
+    description['  N. studies reporting S2 (q1, med, q3, n):', 1] <- sum(scenario_g1 == 'S2', na.rm = TRUE)
+    description['  N. studies reporting S3 (min, q1, med, q3, max, n):', 1] <- sum(scenario_g1 == 'S3', na.rm = TRUE)
+    description['N. studies reporting the mean:', 1] <- sum(!is.na(df$mean.g1))
+    description['  N. studies reporting the mean, sd, and n:', 1] <- sum(scenario_g1 == 'S4', na.rm = TRUE)
     if (!one_group){
-      description['N. studies', 2] <- n_studies
-      description['N. studies reporting the median', 2] <- sum(!is.na(df$med.g2))
-      description['  N. studies reporting S1', 2] <- sum(scenario_g2 == 'S1', na.rm = TRUE)
-      description['  N. studies reporting S2', 2] <- sum(scenario_g2 == 'S2', na.rm = TRUE)
-      description['  N. studies reporting S3', 2] <- sum(scenario_g2 == 'S3', na.rm = TRUE)
-      description['N. studies reporting the mean, sd, and n', 2] <- sum(scenario_g2 == 'S4', na.rm = TRUE)
+      description['N. studies:', 2] <- n_studies
+      description['N. studies reporting the median:', 2] <- sum(!is.na(df$med.g2))
+      description['  N. studies reporting S1 (min, med, max, n):', 2] <- sum(scenario_g2 == 'S1', na.rm = TRUE)
+      description['  N. studies reporting S2 (q1, med, q3, n):', 2] <- sum(scenario_g2 == 'S2', na.rm = TRUE)
+      description['  N. studies reporting S3 (min, q1, med, q3, max, n):', 2] <- sum(scenario_g2 == 'S3', na.rm = TRUE)
+      description['N. studies reporting the mean:', 2] <- sum(!is.na(df$mean.g2))
+      description['  N. studies reporting the mean, sd, and n:', 2] <- sum(scenario_g2 == 'S4', na.rm = TRUE)
     }
   }
 
