@@ -3,9 +3,9 @@
 \docType{data}
 \name{dat.age}
 \alias{dat.age}
-\title{Example data set: Comparing the age between COVID-19 survivors and nonsurvivors}
+\title{Example data set: Comparing the age between COVID-19 survivors and nonsurvivors (cleaned version)}
 \format{
-A data frame with 52 rows and 13 columns:
+A data frame with 51 rows and 13 columns:
 \tabular{ll}{
   \code{author} \tab first author of the primary study and the journal name. \cr
   \code{n.g1} \tab number of subjects (nonsurvivor group). \cr
@@ -25,9 +25,11 @@ A data frame with 52 rows and 13 columns:
 dat.age
 }
 \description{
-A data set from the meta-analysis of Katzenschlager et al. (2021). Specifically, this data set corresponds to the meta-analysis comparing the age of COVID-19 infected patients who died and those who survived. The rows in the data set correspond to the primary studies.
+A data set from the meta-analysis of Katzenschlager et al. (2021). Specifically, this data set corresponds to the meta-analysis comparing the age of COVID-19 infected patients who died and those who survived. The rows in the data set correspond to the primary studies. Compared to the "raw" version (i.e., \code{\link{dat.age_raw}}), this data set excludes the primary study of Qi et al. (2021) due to its small sample size in the nonsurvivor group.
 }
 \references{
 Katzenschlager S., Zimmer A.J., Gottschalk C., Grafeneder J., Seitel A., Maier-Hein L., Benedetti A., Larmann J., Weigand M.A., McGrath S., and Denkinger C.M. (2021). Can we predict the severe course of COVID-19 - A systematic review and meta-analysis of indicators of clinical outcome? \emph{PLOS One}, \strong{16}, e0255154.
+
+Qi X., Liu Y., Wang J., Fallowfield J.A., Wang J., Li X., Shi J., Pan H., Zou S., Zhang H., and others. (2021). Clinical course and risk factors for mortality of COVID-19 patients with pre-existing cirrhosis: A multicentre cohort study, \emph{Gut}, \strong{70}, 433–436.
 }
 \keyword{datasets}
