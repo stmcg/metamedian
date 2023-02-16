@@ -44,7 +44,7 @@
 #' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
 #' @param nboot integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.
-#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
+#' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific outcome measure estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
@@ -136,12 +136,15 @@ metamean <- function(data, mean_method = 'mln', se_method = 'bootstrap',
 }
 
 check_and_clean_df <- function(df, method){
-  if (method != 'cd'){
-    all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
-                               'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
-  } else {
+  if (!is.data.frame(df)){
+    stop("'data' must be of class data.frame")
+  }
+  if (length(method) == 1 && method == 'cd'){
     all_possible_colnames <- c('q1.g1', 'med.g1', 'q3.g1', 'n.g1', 'mean.g1', 'sd.g1', 'med.var.g1',
                                'med.ci.lb.g1', 'med.ci.ub.g1', 'alpha.1.g1', 'alpha.2.g1')
+  } else {
+    all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
+                               'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
   }
 
   # Filling missing columns
@@ -154,13 +157,15 @@ check_and_clean_df <- function(df, method){
       if (class(df[, col]) %in% 'logical' | all(is.na(df[, col]))){
         next()
       }
-      stop('Summary data must be of class numeric or integer. Column ', col, 'is not of one of these classes')
+      stop('Summary data must be of class numeric or integer. Column ', col, ' is not of one of these classes')
     }
   }
 
   # Removing any empty rows
-  na.row.indicator <- apply(df, 1, function(x) all(is.na(x)))
+  temp <- df[, all_possible_colnames]
+  na.row.indicator <- apply(temp, 1, function(x) all(is.na(x)))
   if (any(na.row.indicator)) {
+    warning(paste0('Removed the following rows because all summary data were set to NA: ', which(na.row.indicator)))
     df <- df[!na.row.indicator, ]
   }
 
@@ -170,12 +175,22 @@ check_and_clean_df <- function(df, method){
 check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
   if (length(mean_method) == 1){
     mean_method <- rep(mean_method, times = n)
+  } else {
+    if (length(mean_method) != n){
+      stop("The length of 'mean_method' must equal to the number of rows in 'data'.")
+    }
   }
   if (length(se_method) == 1){
     se_method <- rep(se_method, times = n)
+    if (length(se_method) != n){
+      stop("The length of 'se_method' must equal to the number of rows in 'data'.")
+    }
   }
   if (length(sd_method) == 1){
     sd_method <- rep(sd_method, times = n)
+    if (length(sd_method) != n){
+      stop("The length of 'sd_method' must equal to the number of rows in 'data'.")
+    }
   }
 
   # Checking that mean_method, se_method, and sd_method are set to valid options
@@ -188,10 +203,8 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
     stop("se_method must be set to 'bootstrap', 'plugin', or 'naive'")
   }
   all_sd_methods <- c('qe', 'bc', 'mln', 'wan', 'yang', 'shi_normal', 'shi_lognormal')
-  if (!is.null(sd_method)){
-    if (!all(is.na(sd_method) | sd_method %in% all_sd_methods)){
-      stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', or 'shi_lognormal'")
-    }
+  if (!all(is.na(sd_method) | sd_method %in% all_sd_methods)){
+    stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', or 'shi_lognormal'")
   }
 
   # Checking consistency between mean_method, sd_method, and se_method
@@ -203,10 +216,10 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
     } else if (se_method[i] == 'plugin'){
       if (mean_method[i] != 'yang'){
         stop("se_method can only be set to 'plugin' when mean_method is set to 'yang'")
-      } else if (se_method[i] == 'naive'){
-        if (is.na(sd_method[i])){
-          stop("sd_method must be specified when se_method is set to 'naive'")
-        }
+      }
+    } else if (se_method[i] == 'naive'){
+      if (is.na(sd_method[i])){
+        stop("sd_method must be specified when se_method is set to 'naive'")
       }
     }
   }
@@ -301,9 +314,9 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
     est.se <- sqrt(fit_yang$Var_mu)
   } else if (se_method == 'naive'){
     if (sd_method == 'mln'){
-      est.se <- fit_qe$est.sd / sqrt(n)
+      est.se <- fit_mln$est.sd / sqrt(n)
     } else if (sd_method == 'bc'){
-      est.se <- fit_qe$est.sd / sqrt(n)
+      est.se <- fit_bc$est.sd / sqrt(n)
     } else if (sd_method == 'qe'){
       est.se <- fit_qe$est.sd / sqrt(n)
     } else if (sd_method == 'yang'){

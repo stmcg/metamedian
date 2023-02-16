@@ -56,7 +56,7 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{nboot}{integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.}
 
-\item{pool_studies}{logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.}
+\item{pool_studies}{logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific outcome measure estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.}
 
 \item{...}{optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.}
 }
