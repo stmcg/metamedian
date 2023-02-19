@@ -36,14 +36,20 @@ describe_studies <- function(data, method = 'qe',
                              group_labels = c('Group 1', 'Group 2')){
   df <- check_and_clean_df(df = data, method = method)
   n_studies <- nrow(df)
-  g2_names <- c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
-  one_group <- all(!g2_names %in% colnames(df)) || all(is.na(df[, g2_names]))
-  if (!one_group & length(group_labels) != 2){
-    stop("Argument 'group_labels' must be of length 2")
-  }
+
   if (length(method) != 1){
     stop("Argument 'method' must be of length 1")
   }
+  if (method == 'cd'){
+    one_group <- TRUE
+  } else {
+    g2_names <- c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
+    one_group <- all(is.na(df[, g2_names]))
+  }
+  if (!one_group & length(group_labels) != 2){
+    stop("Argument 'group_labels' must be of length 2")
+  }
+
   scenario_g1 <- scenario_g2 <- rep(NA, times = n_studies)
   for (i in 1:n_studies){
     if (method != 'cd'){

@@ -20,6 +20,8 @@ knitr::opts_chunk$set(echo = TRUE)
 *  Added the `dat.age_raw`, `dat.age`, `dat.asat_raw`, `dat.asat`, 
    `dat.ck_raw`, and `dat.ck` data sets and corresponding example applications 
    in the documentation
+*  Added unit tests for the `metamean()`, `metamedian()`, and 
+   `describe_studies()` functions
 
 ### Changes in Version 0.1.6 (2022-06-18)
 *  Fixed an error in Example 2 in the documentation for the `qe()` function
