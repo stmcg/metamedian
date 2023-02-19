@@ -38,6 +38,12 @@ describe_studies <- function(data, method = 'qe',
   n_studies <- nrow(df)
   g2_names <- c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
   one_group <- all(!g2_names %in% colnames(df)) || all(is.na(df[, g2_names]))
+  if (!one_group & length(group_labels) != 2){
+    stop("Argument 'group_labels' must be of length 2")
+  }
+  if (length(method) != 1){
+    stop("Argument 'method' must be of length 1")
+  }
   scenario_g1 <- scenario_g2 <- rep(NA, times = n_studies)
   for (i in 1:n_studies){
     if (method != 'cd'){
@@ -106,7 +112,7 @@ describe_studies <- function(data, method = 'qe',
                                '  N. studies reporting C3 (med, sampling variance):',
                                '  N. studies reporting C5 (q1, med, q3, n):',
                                'N. studies reporting the mean:',
-                               'N. studies reporting C4 (mean, sd, n):')
+                               '  N. studies reporting C4 (mean, sd, n):')
     description['N. studies:', 1] <- n_studies
     description['N. studies reporting the median:', 1] <- sum(!is.na(df$med.g1))
     description['  N. studies reporting C1/C2 (med, CI bounds, coverage):', 1] <- sum(scenario_g1 == 'C1', na.rm = TRUE)
