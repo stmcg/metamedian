@@ -204,7 +204,7 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
   }
   all_sd_methods <- c('qe', 'bc', 'mln', 'wan', 'yang', 'shi_normal', 'shi_lognormal')
   if (!all(is.na(sd_method) | sd_method %in% all_sd_methods)){
-    stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'luo', 'yang', 'shi_normal', or 'shi_lognormal'")
+    stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'yang', 'shi_normal', or 'shi_lognormal'")
   }
 
   # Checking consistency between mean_method, sd_method, and se_method
@@ -235,7 +235,8 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
   max.val <- df[, paste0('max.g', group)]
   n <- df[, paste0('n.g', group)]
 
-  if (mean_method %in% c('luo', 'yang', 'shi_normal', 'shi_lognormal') | (!is.na(sd_method) & sd_method %in% c('wan'))){
+  if (mean_method %in% c('luo', 'yang', 'shi_normal', 'shi_lognormal') |
+      (!is.na(sd_method) & sd_method %in% c('wan', 'yang', 'shi_normal', 'shi_lognormal'))){
     if (scenario == 'S1'){
       quants <- c(min.val, med.val, max.val)
     } else if (scenario == 'S2'){
@@ -250,12 +251,14 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
     if (mean_method == 'mln'){
       est.mean <- fit_mln$est.mean
     }
-  } else if (mean_method == 'bc' | (!is.na(sd_method) & sd_method == 'bc')){
+  }
+  if (mean_method == 'bc' | (!is.na(sd_method) & sd_method == 'bc')){
     fit_bc <- estmeansd::bc.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
     if (mean_method == 'bc'){
       est.mean <- fit_bc$est.mean
     }
-  } else if (mean_method == 'qe' | (!is.na(sd_method) & sd_method == 'qe')){
+  }
+  if (mean_method == 'qe' | (!is.na(sd_method) & sd_method == 'qe')){
     fit_qe <- estmeansd::qe.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
     if (mean_method == 'qe'){
       est.mean <- fit_qe$est.mean
@@ -326,7 +329,7 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
       theta1 <- (2 + 0.14 * n^0.6) * stats::qnorm((n - 0.375) / (n + 0.25))
       theta2 <- (2 + 2 / (0.07 * n^0.6)) * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
       est.se <- ((max.val - min.val) / theta1 + (q3.val - q1.val) / theta2) / sqrt(n)
-    } else if (sd_method %in% c('wan', 'luo', 'shi_normal')){
+    } else if (sd_method %in% c('wan', 'shi_normal')){
       est.se <- metaBLUE::Wan.std(X = quants, n = n, type = scenario)$sigmahat / sqrt(n)
     } else if (sd_method == 'shi_lognormal'){
       muhat <- metaBLUE::Luo.mean(X = log(quants), n = n, type = scenario)$muhat
