@@ -87,7 +87,7 @@ cd <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
     if (scenario == 'C1'){
       zl <- stats::qnorm(df$alpha.1[i])
       zu <- stats::qnorm(1 - df$alpha.2[i])
-      vi[i] <- (df$q3[i] - df$q1[i])^2 / (zu - zl)^2
+      vi[i] <- (df$med.ci.ub[i] - df$med.ci.lb[i])^2 / (zu - zl)^2
       yi[i] <- (df$med.ci.lb[i] + df$med.ci.ub[i]) / 2 - (zl + zu) * sqrt(vi[i]) / 2
     } else if (scenario == 'C3'){
       yi[i] <- df$med[i]
