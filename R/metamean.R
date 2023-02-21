@@ -244,15 +244,29 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
     } else if (scenario == 'S3'){
       quants <- c(min.val, q1.val, med.val, q3.val, max.val)
     }
+    if (min(quants) <= 0){
+      if (mean_method == 'shi_lognormal'){
+        stop('The mean method ', mean_method, ' can only be used for positive data')
+      }
+      if (sd_method == 'shi_lognormal'){
+        stop('The standard deviation method ', sd_method, ' can only be used for positive data')
+      }
+    }
   }
 
   if (mean_method == 'mln' | (!is.na(sd_method) & sd_method == 'mln')){
+    if (check_negative(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, scenario = scenario)){
+      stop('The mln method can only be used for positive data')
+    }
     fit_mln <- estmeansd::mln.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
     if (mean_method == 'mln'){
       est.mean <- fit_mln$est.mean
     }
   }
   if (mean_method == 'bc' | (!is.na(sd_method) & sd_method == 'bc')){
+    if (check_negative(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, scenario = scenario)){
+      stop('The bc method can only be used for positive data')
+    }
     fit_bc <- estmeansd::bc.mean.sd(min.val = min.val, q1.val = q1.val, med.val = med.val, q3.val = q3.val, max.val = max.val, n = n)
     if (mean_method == 'bc'){
       est.mean <- fit_bc$est.mean
@@ -361,4 +375,13 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
   }
 
   return(list(est.mean = est.mean, est.se = est.se))
+}
+
+check_negative <- function(min.val = NA, q1.val = NA, med.val = NA,
+                           q3.val = NA, max.val = NA, scenario){
+  if (scenario %in% c('S1', 'S3')){
+    return(min.val <= 0)
+  } else if (scenario == 'S2'){
+    return(q1.val <= 0)
+  }
 }
