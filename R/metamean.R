@@ -311,9 +311,9 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
       xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
       eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
       w3 <- 1 / (1 + 0.07 * n^0.6)
-      sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^2 /
+      sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / xi) + (1 - w3) * ((log(q3.val) - log(q1.val)) / eta))^2 /
         (1 + 0.28 / (log(n))^2)
-      sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^4 /
+      sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / xi) + (1 - w3) * ((log(q3.val) - log(q1.val)) / eta))^4 /
         (1 + 3.93 / n)
       est.mean <- exp(muhat + sigma2hat3 / 2) / (1 + 0.405 * sigma2hat3 / n + 0.315 * sigma4hat3 / n)
     }
@@ -351,7 +351,7 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
         xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
         sigma2hat1 <- ((log(max.val) - log(min.val)) / xi)^2 / (1.01 + 0.25 / (log(n))^2)
         sigma4hat1 <- ((log(max.val) - log(min.val)) / xi)^4 / (1 + 2.23 * (log(n))^(-2))
-        sigma2hat <- exp(2 * muhat + 2 * sigma2hat1) / (1 + 2.26 * sigma2hat1 / n + 4.92 * sigma4hat1 / n) -
+        sigma2hat <- exp(2 * muhat + 2 * sigma2hat1) / (1 + 2.26 * sigma2hat1 / n + 5.92 * sigma4hat1 / n) -
           exp(2 * muhat + sigma2hat1) / (1 + 2.26 * sigma2hat1 / n + 1.48 * sigma4hat1 / n)
       } else if (scenario == 'S2'){
         eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
@@ -363,9 +363,9 @@ get_mean_se <- function(df, mean_method, se_method, sd_method, scenario, group, 
         xi <- 2 * stats::qnorm((n - 0.375) / (n + 0.25))
         eta <- 2 * stats::qnorm((0.75 * n - 0.125) / (n + 0.25))
         w3 <- 1 / (1 + 0.07 * n^0.6)
-        sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^2 /
+        sigma2hat3 <- (w3 * ((log(max.val) - log(min.val)) / xi) + (1 - w3) * ((log(q3.val) - log(q1.val)) / eta))^2 /
           (1 + 0.28 / (log(n))^2)
-        sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / eta) + (1 - w3) * ((log(q3.val) - log(q1.val)) / xi))^4 /
+        sigma4hat3 <- (w3 * ((log(max.val) - log(min.val)) / xi) + (1 - w3) * ((log(q3.val) - log(q1.val)) / eta))^4 /
           (1 + 3.93 / n)
         sigma2hat <- exp(2 * muhat + 2 * sigma2hat3) / (1 + 1.62 * sigma2hat3 / n + 5.04 * sigma4hat3 / n) -
           exp(2 * muhat + sigma2hat3) / (1 + 1.62 * sigma2hat3 / n + 1.26 * sigma4hat3 / n)
