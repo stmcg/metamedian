@@ -165,8 +165,12 @@ check_and_clean_df <- function(df, method){
   temp <- df[, all_possible_colnames]
   na.row.indicator <- apply(temp, 1, function(x) all(is.na(x)))
   if (any(na.row.indicator)) {
-    warning(paste0('Removed the following rows because all summary data were set to NA: ', which(na.row.indicator)))
-    df <- df[!na.row.indicator, ]
+    if (all(na.row.indicator)){
+      stop(paste0('All rows in the input data set have all summary data set to NA. This may be due to the column names of the input data set being set incorrectly.'))
+    } else {
+      stop(paste0('The following rows in the input data set have all summary data set to NA: ',
+                  paste(which(na.row.indicator), collapse = ' ')))
+    }
   }
 
   return(df)
