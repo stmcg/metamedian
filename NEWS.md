@@ -1,6 +1,6 @@
 ## Package Updates
 
-### Changes in Version 1.0.0 (TBD)
+### Changes in Version 1.0.0 (2023-02-27)
 
 -   Added the `metamean()` function, which can apply several methods to
     estimate study-specific means and their standard errors in order to
@@ -15,6 +15,8 @@
 -   Added the `dat.age_raw`, `dat.age`, `dat.asat_raw`, `dat.asat`,
     `dat.ck_raw`, and `dat.ck` data sets and corresponding example
     applications in the documentation
+-   Added unit tests for the `metamean()`, `metamedian()`, and
+    `describe_studies()` functions
 
 ### Changes in Version 0.1.6 (2022-06-18)
 
