@@ -38,7 +38,7 @@ For two group studies, this data frame can also contain the following columns fo
 \tabular{ll}{
 \code{"mm"} \tab Median of Medians (McGrath et al. 2019) for one-group studies and Median of the Difference of Medians (McGrath et al. 2020) for two group studies. \cr
 \code{"wm"} \tab Weighted Median of Medians (McGrath et al. 2019) for one-group studies and Weighted Median of the Difference of Medians (McGrath et al. 2020) for two group studies. \cr
-\code{"qe"} \tab Quantile Matching Estimation (McGrath et al. 20220). This approach is applicable for one-group studies or two-group studies. This is the default option. \cr
+\code{"qe"} \tab Quantile Matching Estimation (McGrath et al. 2020). This approach is applicable for one-group studies or two-group studies. This is the default option. \cr
 \code{"cd"} \tab Confidence Distribution (Ozturk and Balakrishnan 2020). This approach is applicable for one-group studies. \cr}}
 
 \item{single.family}{(only applicable when \code{median_method} is set to \code{"qe"}) logical scalar indicating that for two-group studies, the parametric family of distributions is assumed to be the same across both groups. The default is \code{FALSE}. See 'Details' of \code{\link{qe.study.level}}.}
@@ -47,7 +47,7 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{norm.approx}{(only applicable when \code{median_method} is set to \code{"mm"} or \code{"wm"}) logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval. The default is \code{TRUE}.}
 
-\item{coverage.prob}{(only applicable when \code{median_method} is set to \code{"mm"}, \code{"wm"}, or \code{"cd"}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate The default is \code{0.95}.}
+\item{coverage.prob}{(only applicable when \code{median_method} is set to \code{"mm"}, \code{"wm"}, or \code{"cd"}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate. The default is \code{0.95}.}
 
 \item{method_cd}{(only applicable when \code{median_method} is set to \code{"cd"}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.}
 

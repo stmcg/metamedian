@@ -1,5 +1,9 @@
 ## Package Updates
 
+### Changes in Version 1.0.1 (TBD)
+
+-   Updates to the documentation
+
 ### Changes in Version 1.0.0 (2023-02-27)
 
 -   Added the `metamean()` function, which can apply several methods to
