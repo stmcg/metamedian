@@ -33,10 +33,12 @@ an object of class \code{"describe_studies"}. The object is a list with the foll
 \item{description}{data frame containing the results of the descriptive analyses.}
 \item{bowley_g1}{vector containing the study-specific Bowley skewness values in group 1.}
 \item{bowley_g2}{vector containing the study-specific Bowley skewness values in group 2.}
+\item{skew_test_g1}{data frame containing the results of the skewness test of Shi et al. (2023) based on the group 1 data. The data frame contains the test statistic values, critical values at the 0.05 level, and indicators of statistical significance at the 0.05 level.}
+\item{skew_test_g2}{data frame containing the results of the skewness test of Shi et al. (2023) based on the group 2 data. The data frame contains the test statistic values, critical values at the 0.05 level, and indicators of statistical significance at the 0.05 level.}
 The results are printed with the \code{\link{print.describe_studies}} function.
 }
 \description{
-This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
+This function performs some descriptive analyses. Specifically, this function describes: (i) the number of studies reporting various summary statistics, (ii) the Bowley skewness (Bowley, 1901) in the primary studies, and (iii) the results of a skewness test (Shi et al., 2023) applied to the summary statistics reported in the primary studies.
 }
 \examples{
 describe_studies(data = dat.age, group_labels = c("Nonsurvivors", "Survivors"))
@@ -44,4 +46,6 @@ describe_studies(data = dat.age, group_labels = c("Nonsurvivors", "Survivors"))
 }
 \references{
 Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
+
+Shi J., Luo D., Wan X., Yue L., Liu J., Bian Z., Tong T. (2023). Detecting the skewness of data from the five-number summary and its application in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{0}(0).
 }

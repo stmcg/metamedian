@@ -1,6 +1,6 @@
 #' Descriptive statistics for meta-analyzing studies reporting medians
 #'
-#' This function performs some descriptive analyses of the number of studies reporting various summary statistics as well as the Bowley skewness (Bowley, 1901) in the primary studies.
+#' This function performs some descriptive analyses. Specifically, this function describes: (i) the number of studies reporting various summary statistics, (ii) the Bowley skewness (Bowley, 1901) in the primary studies, and (iii) the results of a skewness test (Shi et al., 2023) applied to the summary statistics reported in the primary studies.
 #'
 #' @param data data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{
@@ -24,9 +24,12 @@
 #' \item{description}{data frame containing the results of the descriptive analyses.}
 #' \item{bowley_g1}{vector containing the study-specific Bowley skewness values in group 1.}
 #' \item{bowley_g2}{vector containing the study-specific Bowley skewness values in group 2.}
+#' \item{skew_test_g1}{data frame containing the results of the skewness test of Shi et al. (2023) based on the group 1 data. The data frame contains the test statistic values, critical values at the 0.05 level, and indicators of statistical significance at the 0.05 level.}
+#' \item{skew_test_g2}{data frame containing the results of the skewness test of Shi et al. (2023) based on the group 2 data. The data frame contains the test statistic values, critical values at the 0.05 level, and indicators of statistical significance at the 0.05 level.}
 #' The results are printed with the \code{\link{print.describe_studies}} function.
 #'
 #' @references Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
+#' @references Shi J., Luo D., Wan X., Yue L., Liu J., Bian Z., Tong T. (2023). Detecting the skewness of data from the five-number summary and its application in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{0}(0).
 #'
 #' @examples
 #' describe_studies(data = dat.age, group_labels = c("Nonsurvivors", "Survivors"))
@@ -73,13 +76,15 @@ describe_studies <- function(data, method = 'qe',
   df_g1_for_bowley <- df[!is.na(scenario_g1) & (scenario_g1 %in% c('S2', 'S3') | scenario_g1 == 'C5'), ]
   bowley_g1 <- (df_g1_for_bowley$q1.g1 - 2 * df_g1_for_bowley$med.g1 + df_g1_for_bowley$q3.g1) /
     (df_g1_for_bowley$q3.g1 - df_g1_for_bowley$q1.g1)
+  skew_test_g1 <- perform_skew_test(df = df, group = 1, scenario = scenario_g1, n_studies = n_studies)
 
   if (!one_group){
     df_g2_for_bowley <- df[!is.na(scenario_g2) & (scenario_g2 %in% c('S2', 'S3') | scenario_g2 == 'C5'), ]
     bowley_g2 <- (df_g2_for_bowley$q1.g2 - 2 * df_g2_for_bowley$med.g2 + df_g2_for_bowley$q3.g2) /
       (df_g2_for_bowley$q3.g2 - df_g2_for_bowley$q1.g2)
+    skew_test_g2 <- perform_skew_test(df = df, group = 1, scenario = scenario_g1, n_studies = n_studies)
   } else {
-    bowley_g2 = NULL
+    bowley_g2 <- skew_test_g2 <-  NULL
   }
 
   if (one_group){
@@ -162,12 +167,56 @@ describe_studies <- function(data, method = 'qe',
   }
 
   output <- list(description = data.frame(description, check.names = FALSE),
-                 bowley_g1 = bowley_g1, bowley_g2 = bowley_g2)
+                 bowley_g1 = bowley_g1, bowley_g2 = bowley_g2,
+                 skew_test_g1 = skew_test_g1, skew_test_g2 = skew_test_g2)
   class(output) <- 'describe_studies'
 
   return(output)
 }
 
+perform_skew_test <- function(df, group, scenario, n_studies){
+  res <- data.frame(
+    test_stat = rep(NA, n_studies),
+    critical_value = rep(NA, n_studies),
+    reject = rep(NA, n_studies)
+  )
+  for (i in 1:n_studies){
+    if (!is.na(scenario[i])){
+      if (group == 1){
+        n <- df[i, 'n.g1']
+        min_val <- df[i, 'min.g1']
+        q1_val <- df[i, 'q1.g1']
+        med_val <- df[i, 'med.g1']
+        q3_val <- df[i, 'q3.g1']
+        max_val <- df[i, 'max.g1']
+      } else if (group == 2){
+        n <- df[i, 'n.g2']
+        min_val <- df[i, 'min.g2']
+        q1_val <- df[i, 'q1.g2']
+        med_val <- df[i, 'med.g2']
+        q3_val <- df[i, 'q3.g2']
+        max_val <- df[i, 'max.g2']
+      }
+
+      if (scenario[i] == 'S1'){
+        res[i, 'test_stat'] <- (min_val + max_val - 2 * med_val) / (max_val - min_val)
+        res[i, 'critical_value'] <- 1 / log(n + 9) + 2.5 / (n + 1)
+        res[i, 'reject'] <- abs(res[i, 'test_stat']) > res[i, 'critical_value']
+      } else if (scenario[i] == 'S2'){
+        res[i, 'test_stat'] <- (q1_val + q3_val - 2 * med_val) / (q3_val - q1_val)
+        res[i, 'critical_value'] <- 2.65 / sqrt(n) - 6 / n^2
+        res[i, 'reject'] <- abs(res[i, 'test_stat']) > res[i, 'critical_value']
+      } else if (scenario[i] == 'S3'){
+        T1 <- (min_val + max_val - 2 * med_val) / (max_val - min_val)
+        T2 <- (q1_val + q3_val - 2 * med_val) / (q3_val - q1_val)
+        res[i, 'test_stat'] <- max((2.65 * log(0.6 * n) / sqrt(n)) * abs(T1), T2)
+        res[i, 'critical_value'] <- 3 / sqrt(n) - 40 / n^3
+        res[i, 'reject'] <- abs(res[i, 'test_stat']) > res[i, 'critical_value']
+      }
+    }
+  }
+  return(res)
+}
 
 #' Print method for "describe_studies" objects
 #'

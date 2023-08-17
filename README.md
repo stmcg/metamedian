@@ -38,6 +38,7 @@ context:
 - [Yang et
   al. (2022)](https://www.tandfonline.com/doi/full/10.1080/02664763.2021.1967890)
 - [McGrath et al. (2023)](https://doi.org/10.1177/09622802221139233)
+- [Shi et al. (2023)](https://doi.org/10.1177/09622802231172043)
 
 ## Installation
 

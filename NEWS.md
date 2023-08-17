@@ -1,7 +1,9 @@
 ## Package Updates
 
-### Changes in Version 1.0.1 (TBD)
+### Changes in Version 1.1.0 (TBD)
 
+-   Added the skewness test of Shi et al. (2023) to the
+    `describe_studies()` function
 -   Updates to the documentation
 
 ### Changes in Version 1.0.0 (2023-02-27)
