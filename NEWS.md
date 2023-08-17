@@ -4,6 +4,7 @@
 
 -   Added the skewness test of Shi et al. (2023) to the
     `describe_studies()` function
+-   Expanded the error checking  
 -   Updates to the documentation
 
 ### Changes in Version 1.0.0 (2023-02-27)

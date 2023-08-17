@@ -142,6 +142,9 @@ check_and_clean_df <- function(df, method){
   if (length(method) == 1 && method == 'cd'){
     all_possible_colnames <- c('q1.g1', 'med.g1', 'q3.g1', 'n.g1', 'mean.g1', 'sd.g1', 'med.var.g1',
                                'med.ci.lb.g1', 'med.ci.ub.g1', 'alpha.1.g1', 'alpha.2.g1')
+    if (any(c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2') %in% colnames(df))){
+      warning('A data set with two groups was provided, but the CD method is only applicable for one-group studies. The CD method is only meta-analyzing the group 1 data.')
+    }
   } else {
     all_possible_colnames <- c('min.g1', 'q1.g1', 'med.g1', 'q3.g1', 'max.g1', 'n.g1', 'mean.g1', 'sd.g1',
                                'min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')
