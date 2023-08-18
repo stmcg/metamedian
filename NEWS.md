@@ -4,6 +4,9 @@
 
 -   Added the skewness test of Shi et al. (2023) to the
     `describe_studies()` function
+-   Changed the default values for the `se_method` and `sd_method`
+    arguments in the `metamean()` function. They are now set based on
+    the value set for the `mean_method` argument.
 -   Expanded the error checking  
 -   Updates to the documentation
 

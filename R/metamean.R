@@ -27,22 +27,22 @@
 #' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
 #' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
 #' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
-#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
+#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). \cr
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
 #' @param se_method character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
 #' \tabular{ll}{
-#' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. The approach used to estimate the standard deviation is specified by the \code{method_sd} argument. \cr
-#' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (2023). \cr
-#' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available when \code{method_mean} is set to \code{'yang'}. \cr}
-#' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator. The options are the following:
+#' \code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. This is the default option when \code{mean_method} is set to \code{'wan'}, \code{'luo'}, \code{'shi_normal'}, or \code{'shi_lognormal'}. The approach used to estimate the standard deviation is specified by the \code{sd_method} argument. \cr
+#' \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (2023). This option is only available (and is the default option) when \code{mean_method} is set to \code{'qe'}, \code{'bc'}, or \code{'mln'}. \cr
+#' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available (and is the default option) when \code{mean_method} is set to \code{'yang'}. \cr}
+#' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator (if applicable). The options are the following:
 #' \tabular{ll}{
-#' \code{'wan'} \tab Method of Wan et al. (2014). \cr
-#' \code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
-#' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
-#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
-#' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
-#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option. \cr
-#' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
+#' \code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'wan'} or \code{'luo'}.\cr
+#' \code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'shi_normal'}. \cr
+#' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). This is the default option when \code{mean_method} is set to \code{'shi_lognormal'}. \cr
+#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). This is the default option when \code{mean_method} is set to \code{'qe'}. \cr
+#' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). This is the default option when \code{mean_method} is set to \code{'bc'}. \cr
+#' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option when \code{mean_method} is set to \code{'mln'}. \cr
+#' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. This is the default option when \code{mean_method} is set to \code{'yang'}. \cr}
 #' @param nboot integer specifying the number of bootstrap samples to use when using parametric bootstrap to estimate the study-specific standard errors in scenarios S1, S2, and S3. The default is \code{1000}.
 #' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific outcome measure estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
@@ -75,8 +75,8 @@
 #'
 #' @export
 
-metamean <- function(data, mean_method = 'mln', se_method = 'bootstrap',
-                     sd_method = NA, nboot = 1e3, pool_studies = TRUE, ...) {
+metamean <- function(data, mean_method = 'mln', se_method,
+                     sd_method, nboot = 1e3, pool_studies = TRUE, ...) {
 
   df <- check_and_clean_df(df = data, method = mean_method)
   n_studies <- nrow(df)
@@ -184,19 +184,42 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
     mean_method <- rep(mean_method, times = n)
   } else {
     if (length(mean_method) != n){
-      stop("The length of 'mean_method' must equal to the number of rows in 'data'.")
+      stop("The length of 'mean_method' must equal 1 or the number of rows in 'data'.")
     }
   }
-  if (length(se_method) == 1){
+  if (missing(se_method)){
+    se_method <- rep(NA, times = n)
+    for (i in 1:n){
+      if (mean_method[i] %in% c('qe', 'bc', 'mln')){
+        se_method[i] <- 'bootstrap'
+      } else if (mean_method[i] == 'yang'){
+        se_method[i] <- 'plugin'
+      } else {
+        se_method[i] <- 'naive'
+      }
+    }
+  } else if (length(se_method) == 1){
     se_method <- rep(se_method, times = n)
     if (length(se_method) != n){
-      stop("The length of 'se_method' must equal to the number of rows in 'data'.")
+      stop("The length of 'se_method' must equal 1 or the number of rows in 'data'.")
     }
   }
-  if (length(sd_method) == 1){
+
+  if (missing(sd_method)){
+    sd_method <- rep(NA, times = n)
+    for (i in 1:n){
+      if (se_method[i] == 'naive'){
+        if (mean_method[i] %in% c('wan', 'shi_normal', 'shi_lognormal', 'qe', 'bc', 'mln', 'yang')){
+          sd_method[i] <- mean_method[i]
+        } else if (mean_method[i] == 'luo'){
+          sd_method[i] <- 'wan'
+        }
+      }
+    }
+  } else if (length(sd_method) == 1){
     sd_method <- rep(sd_method, times = n)
     if (length(sd_method) != n){
-      stop("The length of 'sd_method' must equal to the number of rows in 'data'.")
+      stop("The length of 'sd_method' must equal 1 or the number of rows in 'data'.")
     }
   }
 
