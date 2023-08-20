@@ -31,7 +31,6 @@ For two group studies, this data frame can also contain the following columns fo
 \tabular{ll}{
 \code{'wan'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
 \code{'luo'} \tab Method of Luo et al. (2018). \cr
-\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Luo et al. (2018) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. \cr
 \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
 \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
 \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
@@ -40,14 +39,14 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{se_method}{character string specifying the approach used to estimate the standard errors of the study-specific means estimators in scenarios S1, S2, and S3. The options are the following:
 \tabular{ll}{
-\code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. This is the default option when \code{mean_method} is set to \code{'wan'}, \code{'luo'}, \code{'shi_normal'}, or \code{'shi_lognormal'}. The approach used to estimate the standard deviation is specified by the \code{sd_method} argument. \cr
+\code{'naive'} \tab Uses the estimated standard deviation divided by the square root of the sample size as the estimate of the standard error of the mean estimator. This is the default option when \code{mean_method} is set to \code{'wan'}, \code{'luo'}, or \code{'shi_lognormal'}. The approach used to estimate the standard deviation is specified by the \code{sd_method} argument. \cr
 \code{'bootstrap'} \tab Parametric bootstrap approach described by McGrath et al. (2023). This option is only available (and is the default option) when \code{mean_method} is set to \code{'qe'}, \code{'bc'}, or \code{'mln'}. \cr
 \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available (and is the default option) when \code{mean_method} is set to \code{'yang'}. \cr}}
 
 \item{sd_method}{character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator (if applicable). The options are the following:
 \tabular{ll}{
 \code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'wan'} or \code{'luo'}.\cr
-\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'shi_normal'}. \cr
+\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'luo'}. \cr
 \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). This is the default option when \code{mean_method} is set to \code{'shi_lognormal'}. \cr
 \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). This is the default option when \code{mean_method} is set to \code{'qe'}. \cr
 \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). This is the default option when \code{mean_method} is set to \code{'bc'}. \cr

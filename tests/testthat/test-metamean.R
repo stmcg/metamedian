@@ -12,7 +12,7 @@ dat.age_S1[, c('min.g1', 'max.g1', 'min.g2', 'max.g2')] <-
   cbind(min.g1, max.g1, min.g2, max.g2)
 
 # Checking all approaches with the naive SE estimator
-mean_methods <- c('wan', 'luo', 'shi_normal', 'shi_lognormal', 'qe', 'bc', 'mln', 'yang')
+mean_methods <- c('wan', 'luo', 'shi_lognormal', 'qe', 'bc', 'mln', 'yang')
 sd_methods <- c('wan', 'shi_normal', 'shi_lognormal', 'qe', 'bc', 'mln', 'yang')
 for (mean_method in mean_methods){
   for (sd_method in sd_methods){
