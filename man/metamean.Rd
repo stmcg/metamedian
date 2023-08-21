@@ -29,7 +29,7 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{mean_method}{character string specifying the approach used to estimate the study-specific means. The options are the following:
 \tabular{ll}{
-\code{'wan'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
+\code{'hozo/wan/bland'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
 \code{'luo'} \tab Method of Luo et al. (2018). \cr
 \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
 \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
@@ -45,8 +45,8 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{sd_method}{character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator (if applicable). The options are the following:
 \tabular{ll}{
-\code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'wan'} or \code{'luo'}.\cr
-\code{'shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'luo'}. \cr
+\code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'hozo/wan/bland/hozo'}.\cr
+\code{'wan/shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'luo'}. \cr
 \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). This is the default option when \code{mean_method} is set to \code{'shi_lognormal'}. \cr
 \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). This is the default option when \code{mean_method} is set to \code{'qe'}. \cr
 \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). This is the default option when \code{mean_method} is set to \code{'bc'}. \cr

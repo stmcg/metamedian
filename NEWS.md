@@ -7,6 +7,11 @@
 -   Changed the default values for the `se_method` and `sd_method`
     arguments in the `metamean()` function. They are now set based on
     the value set for the `mean_method` argument.
+-   Renamed the `'wan'` option for the `mean_method` argument to
+    `'hozo/wan/bland'`. Similarly, renamed the `'shi_normal'` option for
+    the `'sd_method'` argument to `'wan/shi_normal'`. the `metamean()`
+    function. They are now set based on the value set for the
+    `mean_method` argument.
 -   Expanded the error checking  
 -   Updates to the documentation
 
