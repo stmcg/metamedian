@@ -159,3 +159,52 @@
 #' @references Qi X., Liu Y., Wang J., Fallowfield J.A., Wang J., Li X., Shi J., Pan H., Zou S., Zhang H., and others. (2021). Clinical course and risk factors for mortality of COVID-19 patients with pre-existing cirrhosis: A multicentre cohort study, \emph{Gut}, \strong{70}, 433–436.
 #'
 "dat.ck"
+
+#' Example data set: Patient Health Questionnaire-9 (PHQ-9) scores (raw version)
+#'
+#' A data set based on a meta-analysis of Patient Health Questionnaire-9 (PHQ-9) scores (Thombs et al. 2014, Levis et al. 2019). This particular data set is from Table S1 and Figure 3 in McGrath et al. (2020); See McGrath et al. (2020) for additional details. The rows in the data set correspond to the primary studies.
+#'
+#' @docType data
+#'
+#' @format A data frame with 58 rows and 9 columns:
+#' \tabular{ll}{
+#'   \code{author} \tab first author of the primary study and the year of publication. \cr
+#'   \code{n.g1} \tab number of subjects. \cr
+#'   \code{min.g1} \tab minimum PHQ-9 score. \cr
+#'   \code{q1.g1} \tab first quartile of the PHQ-9 scores. \cr
+#'   \code{med.g1} \tab median PHQ-9 score. \cr
+#'   \code{q3.g1} \tab third quartile of the PHQ-9 scores.\cr
+#'   \code{max.g1} \tab maximum PHQ-9 score. \cr
+#'   \code{mean.g1} \tab mean PHQ-9 score. \cr
+#'   \code{sd.g1} \tab standard deviation of the PHQ-9 scores.\cr}
+#'
+#' @references Thombs B.D., Benedetti A., Kloda L.A., et al. (2014). The diagnostic accuracy of the Patient Health Questionnaire-2 (PHQ-2), Patient Health Questionnaire-8 (PHQ-8), and Patient Health Questionnaire-9 (PHQ-9) for detecting major depression: protocol for a systematic review and individual patient data meta-analyses. \emph{Systematic Reviews}. \strong{3}(1):1-16.
+#' @references Levis B., Benedetti A., Thombs B.D., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2019). The diagnostic accuracy of the Patient Health Questionnaire-9 (PHQ-9) for detecting major depression. \emph{BMJ}. \strong{365}:l1476.
+#' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
+#'
+"dat.phq9_raw"
+
+
+#' Example data set: Patient Health Questionnaire-9 (PHQ-9) scores (processed version)
+#'
+#' A data set based on a meta-analysis of Patient Health Questionnaire-9 (PHQ-9) scores (Thombs et al. 2014, Levis et al. 2019). This data set was obtained by performing the following data processing items to \code{\link{dat.phq9_raw}}. We randomly selected 14 of the primary studies to report S1 summary statistics, 14 to report S2 summary statistics, 15 to report S3 summary statistics, and 15 to report S4 summary statistics. Since some of the mean-based methods require the sample quantiles to be strictly positive and PHQ-9 scores of 0 were observed in some of the primary studies, we added a value of 0.01 to sample quantiles with a value of 0. Additionally, since some of the mean-based methods do not allow for "ties" in the quantiles (e.g., when the minimum value equals the first quartile value), we added a value of 0.25 to the larger quantile in the event of ties.
+#'
+#' @docType data
+#'
+#' @format A data frame with 58 rows and 9 columns:
+#' \tabular{ll}{
+#'   \code{author} \tab first author of the primary study and the year of publication. \cr
+#'   \code{n.g1} \tab number of subjects. \cr
+#'   \code{min.g1} \tab minimum PHQ-9 score. \cr
+#'   \code{q1.g1} \tab first quartile of the PHQ-9 scores. \cr
+#'   \code{med.g1} \tab median PHQ-9 score. \cr
+#'   \code{q3.g1} \tab third quartile of the PHQ-9 scores.\cr
+#'   \code{max.g1} \tab maximum PHQ-9 score. \cr
+#'   \code{mean.g1} \tab mean PHQ-9 score. \cr
+#'   \code{sd.g1} \tab standard deviation of the PHQ-9 scores.\cr}
+#'
+#' @references Thombs B.D., Benedetti A., Kloda L.A., et al. (2014). The diagnostic accuracy of the Patient Health Questionnaire-2 (PHQ-2), Patient Health Questionnaire-8 (PHQ-8), and Patient Health Questionnaire-9 (PHQ-9) for detecting major depression: protocol for a systematic review and individual patient data meta-analyses. \emph{Systematic Reviews}. \strong{3}(1):1-16.
+#' @references Levis B., Benedetti A., Thombs B.D., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2019). The diagnostic accuracy of the Patient Health Questionnaire-9 (PHQ-9) for detecting major depression. \emph{BMJ}. \strong{365}:l1476.
+#' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
+#'
+"dat.phq9"
