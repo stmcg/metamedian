@@ -9,17 +9,17 @@ A data frame with 17 rows and 13 columns:
 \tabular{ll}{
   \code{author} \tab first author of the primary study and the journal name. \cr
   \code{n.g1} \tab number of subjects (nonsurvivor group). \cr
-  \code{q1.g1} \tab first quartile of age (nonsurvivor group). \cr
-  \code{med.g1} \tab median age (nonsurvivor group). \cr
-  \code{q3.g1} \tab third quartile of age (nonsurvivor group).\cr
-  \code{mean.g1} \tab mean age (nonsurvivor group). \cr
-  \code{sd.g1} \tab standard deviation of age (nonsurvivor group).\cr
+  \code{q1.g1} \tab first quartile of the CK levels (nonsurvivor group). \cr
+  \code{med.g1} \tab median CK level (nonsurvivor group). \cr
+  \code{q3.g1} \tab third quartile of the CK levels (nonsurvivor group).\cr
+  \code{mean.g1} \tab mean CK level (nonsurvivor group). \cr
+  \code{sd.g1} \tab standard deviation of the CK levels (nonsurvivor group).\cr
   \code{n.g2} \tab number of subjects (survivor group). \cr
-  \code{q1.g2} \tab first quartile of age (survivor group). \cr
-  \code{med.g2} \tab median age (survivor group). \cr
-  \code{q3.g2} \tab third quartile of age (survivor group).\cr
-  \code{mean.g2} \tab mean age (survivor group). \cr
-  \code{sd.g2} \tab standard deviation of age (survivor group).\cr}
+  \code{q1.g2} \tab first quartile of the CK levels (survivor group). \cr
+  \code{med.g2} \tab median CK level (survivor group). \cr
+  \code{q3.g2} \tab third quartile of the CK levels (survivor group).\cr
+  \code{mean.g2} \tab mean CK level (survivor group). \cr
+  \code{sd.g2} \tab standard deviation of the CK levels (survivor group).\cr}
 }
 \usage{
 dat.ck

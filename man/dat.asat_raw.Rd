@@ -9,17 +9,17 @@ A data frame with 27 rows and 13 columns:
 \tabular{ll}{
   \code{author} \tab first author of the primary study and the journal name. \cr
   \code{n.g1} \tab number of subjects (nonsurvivor group). \cr
-  \code{q1.g1} \tab first quartile of age (nonsurvivor group). \cr
-  \code{med.g1} \tab median age (nonsurvivor group). \cr
-  \code{q3.g1} \tab third quartile of age (nonsurvivor group).\cr
-  \code{mean.g1} \tab mean age (nonsurvivor group). \cr
-  \code{sd.g1} \tab standard deviation of age (nonsurvivor group).\cr
+  \code{q1.g1} \tab first quartile of the ASAT levels (nonsurvivor group). \cr
+  \code{med.g1} \tab median ASAT level (nonsurvivor group). \cr
+  \code{q3.g1} \tab third quartile of the ASAT levels (nonsurvivor group).\cr
+  \code{mean.g1} \tab mean ASAT level (nonsurvivor group). \cr
+  \code{sd.g1} \tab standard deviation of the ASAT levels (nonsurvivor group).\cr
   \code{n.g2} \tab number of subjects (survivor group). \cr
-  \code{q1.g2} \tab first quartile of age (survivor group). \cr
-  \code{med.g2} \tab median age (survivor group). \cr
-  \code{q3.g2} \tab third quartile of age (survivor group).\cr
-  \code{mean.g2} \tab mean age (survivor group). \cr
-  \code{sd.g2} \tab standard deviation of age (survivor group).\cr}
+  \code{q1.g2} \tab first quartile of the ASAT levels (survivor group). \cr
+  \code{med.g2} \tab median ASAT level (survivor group). \cr
+  \code{q3.g2} \tab third quartile of the ASAT levels (survivor group).\cr
+  \code{mean.g2} \tab mean ASAT level (survivor group). \cr
+  \code{sd.g2} \tab standard deviation of the ASAT levels (survivor group).\cr}
 }
 \usage{
 dat.asat_raw
