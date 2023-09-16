@@ -199,9 +199,8 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
     }
   } else if (length(se_method) == 1){
     se_method <- rep(se_method, times = n)
-    if (length(se_method) != n){
-      stop("The length of 'se_method' must equal 1 or the number of rows in 'data'.")
-    }
+  } else if (length(se_method) != n){
+    stop("The length of 'se_method' must equal 1 or the number of rows in 'data'.")
   }
 
   if (missing(sd_method)){
@@ -219,14 +218,18 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
     }
   } else if (length(sd_method) == 1){
     sd_method <- rep(sd_method, times = n)
-    if (length(sd_method) != n){
-      stop("The length of 'sd_method' must equal 1 or the number of rows in 'data'.")
-    }
+  } else if (length(sd_method) != n){
+    stop("The length of 'sd_method' must equal 1 or the number of rows in 'data'.")
   }
 
   # Checking that mean_method, se_method, and sd_method are set to valid options
   all_mean_methods <- c('qe', 'bc', 'mln', 'hozo/wan/bland', 'luo', 'yang', 'shi_lognormal')
   if (!all(mean_method %in% all_mean_methods)){
+    if (any(mean_method == 'wan')){
+      stop("The 'wan' option for mean_method has been renamed to 'hozo/wan/bland'. Please use the 'hozo/wan/bland' option instead.")
+    } else if (any(mean_method == 'shi_normal')){
+      stop("The 'shi_normal' option for mean_method has been removed because it was redundant with the 'luo' option. Please use the 'luo' option instead.")
+    }
     stop("mean_method must be set to 'qe', 'bc', 'mln', 'hozo/wan/bland', 'luo', 'yang', or 'shi_lognormal'")
   }
   all_se_methods <- c('bootstrap', 'plugin', 'naive')
@@ -235,6 +238,9 @@ check_mean_se_methods <- function(mean_method, se_method, sd_method, n){
   }
   all_sd_methods <- c('qe', 'bc', 'mln', 'wan', 'yang', 'wan/shi_normal', 'shi_lognormal')
   if (!all(is.na(sd_method) | sd_method %in% all_sd_methods)){
+    if (any(!is.na(sd_method) & sd_method == 'shi_normal')){
+      stop("The 'shi_normal' option for sd_method has been renamed to 'wan/shi_normal'. Please use the 'wan/shi_normal' option instead.")
+    }
     stop("sd_method must be set to 'qe', 'bc', 'mln', 'wan', 'yang', 'wan/shi_normal', or 'shi_lognormal'")
   }
 
