@@ -12,7 +12,8 @@
     `'hozo/wan/bland'`. Similarly, renamed the `'shi_normal'` option for
     the `'sd_method'` argument to `'wan/shi_normal'`. the `metamean()`
     function.
--   Expanded the error checking  
+-   Expanded the error checking
+-   Removed Travis CI
 -   Updates to the documentation
 
 ### Changes in Version 1.0.0 (2023-02-27)
