@@ -137,6 +137,10 @@ metamean <- function(data, mean_method = 'mln', se_method,
 check_and_clean_df <- function(df, method){
   if (!is.data.frame(df)){
     stop("'data' must be of class data.frame")
+  } else {
+    if ("tbl_df" %in% class(df)) {
+      df <- as.data.frame(df)
+    }
   }
   if (length(method) == 1 && method == 'cd'){
     all_possible_colnames <- c('q1.g1', 'med.g1', 'q3.g1', 'n.g1', 'mean.g1', 'sd.g1', 'med.var.g1',
