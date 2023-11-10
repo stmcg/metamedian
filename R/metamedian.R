@@ -28,7 +28,7 @@
 #' @param loc.shift (only applicable when \code{median_method} is set to \code{"qe"}) logical scalar indicating that for two-group studies, distributions are assumed to only differ by a location shift. The default is \code{FALSE}. See 'Details' of \code{\link{qe.study.level}}.
 #' @param norm.approx (only applicable when \code{median_method} is set to \code{"mm"} or \code{"wm"}) logical scalar indicating whether normality approximation of the binomial should be used to construct an approximate confidence interval. The default is \code{TRUE}.
 #' @param coverage.prob (only applicable when \code{median_method} is set to \code{"mm"}, \code{"wm"}, or \code{"cd"}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate. The default is \code{0.95}.
-#' @param method_cd (only applicable when \code{median_method} is set to \code{"cd"}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.
+#' @param cd_method (only applicable when \code{median_method} is set to \code{"cd"}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.
 #' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific outcome measure estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #' @param ... (only applicable when \code{median_method} is set to \code{"qe"}) optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
@@ -51,7 +51,7 @@
 
 metamedian <- function(data, median_method = 'qe', single.family = FALSE,
                        loc.shift = FALSE, norm.approx = TRUE, coverage.prob = 0.95,
-                       method_cd = 'RE', pool_studies = TRUE, ...) {
+                       cd_method = 'RE', pool_studies = TRUE, ...) {
   df <- check_and_clean_df(df = data, method = median_method)
   if (!median_method %in% c('qe', 'mm', 'wm', 'cd')){
     stop("median_method must be set to 'mm', 'wm', 'qe', or 'cd'")
@@ -66,7 +66,7 @@ metamedian <- function(data, median_method = 'qe', single.family = FALSE,
     res <- cd(q1 = df$q1.g1, med = df$med.g1, q3 = df$q3.g1, n = df$n.g1, mean = df$mean.g1, sd = df$sd.g1,
               med.var = df$med.var.g1, med.ci.lb = df$med.ci.lb.g1, med.ci.ub = df$med.ci.ub.g1,
               alpha.1 = df$alpha.1.g1, alpha.2 = df$alpha.2.g1, pooled.median.ci.level = coverage.prob,
-              method = method_cd, pool_studies = pool_studies)
+              method = cd_method, pool_studies = pool_studies)
   } else {
     # MM and WM methods
     one_group <- all(is.na(df[, c('min.g2', 'q1.g2', 'med.g2', 'q3.g2', 'max.g2', 'n.g2', 'mean.g2', 'sd.g2')]))

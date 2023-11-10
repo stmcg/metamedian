@@ -1,5 +1,10 @@
 ## Package Updates
 
+### Changes in Version 1.1.1 (TBD)
+
+-   Renamed the argument `method_cd` to `cd_method` in the
+    `metamedian()` function
+
 ### Changes in Version 1.1.0 (2023-09-16)
 
 -   Added the skewness test of Shi et al. (2023) to the

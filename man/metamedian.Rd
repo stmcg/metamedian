@@ -11,7 +11,7 @@ metamedian(
   loc.shift = FALSE,
   norm.approx = TRUE,
   coverage.prob = 0.95,
-  method_cd = "RE",
+  cd_method = "RE",
   pool_studies = TRUE,
   ...
 )
@@ -49,7 +49,7 @@ For two group studies, this data frame can also contain the following columns fo
 
 \item{coverage.prob}{(only applicable when \code{median_method} is set to \code{"mm"}, \code{"wm"}, or \code{"cd"}) numeric scalar indicating the desired coverage probability for the pooled (difference of medians) estimate. The default is \code{0.95}.}
 
-\item{method_cd}{(only applicable when \code{median_method} is set to \code{"cd"}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.}
+\item{cd_method}{(only applicable when \code{median_method} is set to \code{"cd"}) character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.}
 
 \item{pool_studies}{logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific outcome measure estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.}
 
