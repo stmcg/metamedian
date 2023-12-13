@@ -47,16 +47,17 @@
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni". See documentation of \code{\link[metafor]{rma.uni}}.
-#' @references Hozo S.P., Djulbegovic B., and Hozo I. (2005). Estimating the mean and variance from the median, range, and the size of a sample. \emph{BMC Medical Research Methodology}. \strong{5}(1):1-10.
-#' @references Wan X., Wang W., Liu J., and Tong T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology}. \strong{14}(1):1-13.
 #' @references Bland M. (2015). Estimating mean and standard deviation from the sample size, three quartiles, minimum, and maximum. \emph{International Journal of Statistics in Medical Research}. \strong{4}(1):57-64.
+#' @references Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
+#' @references Hozo S.P., Djulbegovic B., and Hozo I. (2005). Estimating the mean and variance from the median, range, and the size of a sample. \emph{BMC Medical Research Methodology}. \strong{5}(1):1-10.
 #' @references Luo D., Wan X., Liu J., and Tong T. (2016). Optimally estimating the sample mean from the sample size, median, mid-range, and/or mid-quartile range. \emph{Statistical Methods in Medical Research}. \strong{27}(6):1785-805.
+#' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
+#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., and Benedetti A. (2023). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}. \strong{32}(2):373-388.
+#' @references McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (in press). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}.
 #' @references Shi J., Luo D., Weng H., Zeng X.T., Lin L., Chu H., and Tong T. (2020a). Optimally estimating the sample standard deviation from the five-number summary. \emph{Research synthesis methods}. \strong{11}(5):641-654.
 #' @references Shi J., Tong T., Wang Y., and Genton M.G. (2020b). Estimating the mean and variance from the five-number summary of a log-normal distribution. \emph{Statistics and Its Interface}. \strong{13}(4):519-531.
-#' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
-#' @references Cai S., Zhou J., and Pan J. (2021). Estimating the sample mean and standard deviation from order statistics and sample size in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{30}(12):2701-2719.
+#' @references Wan X., Wang W., Liu J., and Tong T. (2014). Estimating the sample mean and standard deviation from the sample size, median, range and/or interquartile range. \emph{BMC Medical Research Methodology}. \strong{14}(1):1-13.
 #' @references Yang X., Hutson A.D., and Wang D. (2022). A generalized BLUE approach for combining location and scale information in a meta-analysis. \emph{Journal of Applied Statistics}. \strong{49}(15):3846-3867.
-#' @references McGrath S., Katzenschlager S., Zimmer A.J., Seitel A., Steele R., Benedetti A. (2023). Standard error estimation in meta-analysis of studies reporting medians. \emph{Statistical Methods in Medical Research}. \strong{32}(2):373-388.
 #'
 #' @examples
 #' \donttest{

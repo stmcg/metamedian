@@ -29,6 +29,7 @@
 #' The results are printed with the \code{\link{print.describe_studies}} function.
 #'
 #' @references Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
+#' @references McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (in press). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}.
 #' @references Shi J., Luo D., Wan X., Yue L., Liu J., Bian Z., Tong T. (2023). Detecting the skewness of data from the five-number summary and its application in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{0}(0).
 #'
 #' @examples

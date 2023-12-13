@@ -54,3 +54,8 @@ can be installed from GitHub with:
 ``` r
 devtools::install_github("stmcg/metamedian")
 ```
+
+## Usage
+
+See [McGrath et al. (in press)](https://doi.org/10.1002/jrsm.1686) for a
+detailed guide on using the `metamedian` package.

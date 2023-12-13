@@ -4,6 +4,7 @@
 
 -   Renamed the argument `method_cd` to `cd_method` in the
     `metamedian()` function
+-   Updated references
 
 ### Changes in Version 1.1.0 (2023-09-16)
 
