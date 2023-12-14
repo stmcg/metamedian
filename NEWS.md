@@ -1,6 +1,6 @@
 ## Package Updates
 
-### Changes in Version 1.1.1 (TBD)
+### Changes in Version 1.1.1 (2023-12-13)
 
 -   Renamed the argument `method_cd` to `cd_method` in the
     `metamedian()` function
