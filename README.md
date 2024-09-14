@@ -5,7 +5,8 @@
 
 [![CRAN_Status_Badge](https://badges.cranchecks.info/worst/metamedian.svg)](https://cran.r-project.org/package=metamedian)
 [![R-CMD-check](https://github.com/stmcg/metamedian/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/stmcg/metamedian/actions/workflows/R-CMD-check.yaml)
-[![test-coverage](https://github.com/stmcg/metamedian/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/stmcg/metamedian/actions/workflows/test-coverage.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/stmcg/metamedian/graph/badge.svg)](https://app.codecov.io/gh/stmcg/metamedian)
 [![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 [![CRAN_Download_Badge_All](https://cranlogs.r-pkg.org/badges/grand-total/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 
