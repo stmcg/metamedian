@@ -47,7 +47,7 @@ describe_studies(data = dat.age, group_labels = c("Nonsurvivors", "Survivors"))
 \references{
 Bowley, A.L. (1901). Elements of Statistics. London: P.S. King & Son.
 
-McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (in press). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}.
+McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (2024). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}. \strong{15}(2):332-346.
 
-Shi J., Luo D., Wan X., Yue L., Liu J., Bian Z., Tong T. (2023). Detecting the skewness of data from the five-number summary and its application in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{0}(0).
+Shi J., Luo D., Wan X., Yue L., Liu J., Bian Z., Tong T. (2023). Detecting the skewness of data from the five-number summary and its application in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{32}(7):1338-1360.
 }

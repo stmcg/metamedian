@@ -77,7 +77,7 @@ McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2019). One-sample ag
 
 McGrath S., Sohn H., Steele R., and Benedetti A. (2020). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, \strong{62}, 69-98.
 
-McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (in press). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}.
+McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (2024). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}, \strong{15}, 332-346.
 
 Ozturk O. and Balakrishnan N. (2020). Meta‐analysis of quantile intervals from different studies with an application to a pulmonary tuberculosis data. \emph{Statistics in Medicine}, \strong{39}, 4519-4537.
 }

@@ -35,7 +35,7 @@
 #' @return an object of class "rma.uni" (when \code{median_method} is set to \code{"qe"}) or a list (when \code{median_method} is set to \code{"mm"}, \code{"wm"}, or \code{"cd"}). For additional details, see \code{\link[metafor]{rma.uni}} (when \code{median_method} is set to \code{"qe"}), \code{\link{pool.med}} (when \code{median_method} is set to \code{"mm"} or \code{"wm"}), and \code{\link{cd}} (when \code{median_method} is set to \code{"cd"}).
 #' @references McGrath S., Zhao X., Qin Z.Z., Steele R., and Benedetti A. (2019). One-sample aggregate data meta-analysis of medians. \emph{Statistics in Medicine}, \strong{38}, 969-984.
 #' @references McGrath S., Sohn H., Steele R., and Benedetti A. (2020). Meta-analysis of the difference of medians. \emph{Biometrical Journal}, \strong{62}, 69-98.
-#' @references McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (in press). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}.
+#' @references McGrath S., Zhao X., Ozturk O., Katzenschlager S., Steele R., and Benedetti A. (2024). metamedian: An R package for meta-analyzing studies reporting medians. \emph{Research Synthesis Methods}, \strong{15}, 332-346.
 #' @references Ozturk O. and Balakrishnan N. (2020). Meta‐analysis of quantile intervals from different studies with an application to a pulmonary tuberculosis data. \emph{Statistics in Medicine}, \strong{39}, 4519-4537.
 #'
 #' @examples
