@@ -7,9 +7,9 @@
 #' \item S4: mean, standard deivation, and sample size.
 #'  }.
 #'
-#' In order to estimate the asymptotic sampling variance of the median (in S1, S2, or S3), one must have an estimate of the probability density function of the outcome evaluated at the population median. The \code{\link{qe.fit}} function is applied to estimate the outcome distribution.
+#' In order to estimate the asymptotic sampling variance of the median (in S1, S2, or S3), one must have an estimate of the probability density function of the outcome evaluated at the population median. The \code{\link[estmeansd]{qe.fit}} function is applied to estimate the outcome distribution.
 #'
-#' For two-group studies studies, one may assume that the outcome in both groups follows the same parametric family of distributions. In this case, distribution selection for the QE method is applied as follows. The \code{\link{qe.fit}} function is applied to fit the candidate distributions of each group separately. However, for each candidate distribution, the objective function evaluated at the fitting parameters are summed over the two groups. The parametric family of distributions with the smallest sum is used as the underlying distribution of the both groups. If \code{single.family} is \code{TRUE}, then \code{selected.dist} is a character string indicating the selected parametric family. If \code{single.family} is \code{FALSE}, then \code{selected.dist} is a vector of length 2 where elements 1 and 2 are character strings of the selected parametric families in groups 1 and 2, respectively.
+#' For two-group studies studies, one may assume that the outcome in both groups follows the same parametric family of distributions. In this case, distribution selection for the QE method is applied as follows. The \code{\link[estmeansd]{qe.fit}} function is applied to fit the candidate distributions of each group separately. However, for each candidate distribution, the objective function evaluated at the fitting parameters are summed over the two groups. The parametric family of distributions with the smallest sum is used as the underlying distribution of the both groups. If \code{single.family} is \code{TRUE}, then \code{selected.dist} is a character string indicating the selected parametric family. If \code{single.family} is \code{FALSE}, then \code{selected.dist} is a vector of length 2 where elements 1 and 2 are character strings of the selected parametric families in groups 1 and 2, respectively.
 #'
 #' One may also assume for two-group studies that the outcome distributions in the two groups only differ by a location shfit. In this case, a weighted mean (weighted by sample size) of the estimated probability density functions evaluated at the population medians is used to estimate the asymptotic sampling variance of the difference of medians. See McGrath et al. (2020) for further details.
 #'
@@ -33,8 +33,8 @@
 #' @param sd.g2 numeric value giving the sample standard deviation of the second group for two-group studies.
 #' @param single.family logical scalar indicating that for two-group studies, the parametric family of distributions is assumed to be the same across both groups (the default is \code{FALSE}). See 'Details'.
 #' @param loc.shift logical scalar indicating that for two-group studies, distributions are assumed to only differ by a location shift (the default is \code{FALSE}). See 'Details'.
-#' @param qe.fit.control.g1 optional list of control parameters for \code{\link{qe.fit}} (first group for two-group studies).
-#' @param qe.fit.control.g2 optional list of control parameters for \code{\link{qe.fit}} of the second group for two-group studies.
+#' @param qe.fit.control.g1 optional list of control parameters for \code{\link[estmeansd]{qe.fit}} (first group for two-group studies).
+#' @param qe.fit.control.g2 optional list of control parameters for \code{\link[estmeansd]{qe.fit}} of the second group for two-group studies.
 #'
 #' @return A list with the following components:
 #' \item{var}{Estimated sampling variance of the effect size.}

@@ -83,7 +83,7 @@ For one-group studies, the function estimates the pooled median. For two-group s
 \details{
 Letting \eqn{k} denote the number of studies, provide study-specific summary data as vectors of length \eqn{k}. If a study does not report a given summary measure (e.g., the minimum value), give a value of \code{NA} for the position in the relevant vector. If no studies report a given summary measure, a vector of only \code{NA} values need not be provided. See 'Examples' for appropriate use.
 
-The sampling variance of the effect size for each study is estimated via the QE method. The default starting values and box constraints of the parameters in the minimization algorithm (\code{\link{qe.fit}}) are used. After estimating the sampling variances for all studies, studies are meta-analyzed using the \code{\link[metafor]{rma.uni}} function.
+The sampling variance of the effect size for each study is estimated via the QE method. The default starting values and box constraints of the parameters in the minimization algorithm (\code{\link[estmeansd]{qe.fit}}) are used. After estimating the sampling variances for all studies, studies are meta-analyzed using the \code{\link[metafor]{rma.uni}} function.
 }
 \examples{
 ## Example 1: Meta-analysis of one-group studies
