@@ -1,6 +1,6 @@
-#' Descriptive statistics for meta-analyzing studies reporting medians
+#' Descriptive statistics for meta-analyzing studies reporting sample medians
 #'
-#' This function performs some descriptive analyses. Specifically, this function describes: (i) the number of studies reporting various summary statistics, (ii) the Bowley skewness (Bowley, 1901) in the primary studies, and (iii) the results of a skewness test (Shi et al., 2023) applied to the summary statistics reported in the primary studies.
+#' This function performs some descriptive analyses for meta-analyzing studies reporting sample medians. Specifically, this function describes: (i) the number of studies reporting various summary statistics, (ii) the Bowley skewness (Bowley, 1901) in the primary studies, and (iii) the results of a skewness test (Shi et al., 2023) applied to the summary statistics reported in the primary studies.
 #'
 #' @param data data frame containing the study-specific summary data. For one-group studies, this data frame can contain the following columns:
 #' \tabular{ll}{

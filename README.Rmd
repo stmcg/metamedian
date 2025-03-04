@@ -20,9 +20,19 @@ knitr::opts_chunk$set(
 [![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 [![CRAN_Download_Badge_All](https://cranlogs.r-pkg.org/badges/grand-total/metamedian)](https://www.r-pkg.org/pkg/metamedian)
 
-The `metamedian` package implements several methods to meta-analyze studies that report the sample median of the outcome. When the primary studies are one-group studies, the methods of [McGrath et al. (2019)](https://doi.org/10.1002/sim.8013) and [Ozturk and Balakrishnan (2020)](https://doi.org/10.1002/sim.8738) can be applied to estimate the pooled median. In the two-group context, the methods of [McGrath et al. (2020a)](https://doi.org/10.1002/bimj.201900036) can be applied to estimate the pooled difference of medians across groups. 
+The `metamedian` package implements methods to meta-analyze studies that report estimates of the median of the outcome of interest. 
 
-Additionally, this package implements a number of methods to estimate the study-specific means and their standard errors from studies reporting sample medians in order to estimate the pooled (difference of) means. Specifically, one can apply the following methods in this context:
+## Methods Included
+
+### Median-Based Methods
+
+This package implements several methods to directly meta-analyze studies reporting sample medians. When the primary studies are one-group studies, the methods of [McGrath et al. (2019)](https://doi.org/10.1002/sim.8013) and [Ozturk and Balakrishnan (2020)](https://doi.org/10.1002/sim.8738) can be applied to estimate the pooled median. In the two-group context, the methods of [McGrath et al. (2020a)](https://doi.org/10.1002/bimj.201900036) can be applied to estimate the pooled difference of medians across groups. 
+
+The package also implements methods to meta-analyze median survival times. The package can apply the Wald approximation-based approach (McGrath et al. 2025) to meta-analyze the median survival time, difference of median survival times across groups, and the ratio of median survival times across groups.
+
+### Mean-Based Methods
+
+These methods estimate the study-specific means and their standard errors from studies reporting sample medians in order to estimate the pooled (difference of) means. Specifically, one can apply the following methods:
 
 - [Hozo et al. (2005)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-5-13)
 - [Wan et al. (2014)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-135)
@@ -51,4 +61,74 @@ devtools::install_github("stmcg/metamedian")
 
 ## Usage
 
-See [McGrath et al. (2024)](https://doi.org/10.1002/jrsm.1686) for a detailed guide on using the `metamedian` package.
+See [McGrath et al. (2024)](https://doi.org/10.1002/jrsm.1686) for a detailed guide on using the `metamedian` package. Below, we include the code used in the main examples in the paper. The examples are based on the dataset `dat.age` included in the package.
+
+Loading the package:
+
+``` {r}
+library(metamedian)
+```
+
+Setting a random number seed for reproducibility:
+
+``` {r}
+set.seed(1234)
+```
+
+### Descriptive Analyses
+
+```{r}
+describe_studies(data = dat.age, group_labels = c ("Nonsurvivors", "Survivors"))
+```
+
+### Mean-Based Methods
+
+The analyses below may take 5-10 minutes to run on a standard laptop. For faster runtime, consider using fewer bootstrap replicates for the QE, BC, and MLN methods.
+
+```{r}
+res_wan <- metamean(dat.age, mean_method = "hozo/wan/bland")
+res_luo <- metamean(dat.age, mean_method = "luo")
+res_shi <- metamean(dat.age, mean_method = "shi_lognormal")
+res_qe_mean <- metamean(dat.age, mean_method = "qe")
+res_bc <- metamean(dat.age, mean_method = "bc")
+res_mln <- metamean(dat.age, mean_method = "mln")
+res_yang <- metamean(dat.age, mean_method = "yang")
+```
+
+The output of `res_mln` is illustrated below:
+```{r}
+res_mln
+```
+
+### Median-Based Methods
+```{r}
+res_mm <- metamedian(dat.age, median_method = "mm")
+res_wm <- metamedian(dat.age, median_method = "wm")
+res_qe_median <- metamedian(dat.age, median_method = "qe")
+```
+
+The output of `res_qe_median` is illustrated below:
+```{r}
+res_qe_median
+```
+
+## Reference
+
+To cite this package, use: 
+
+> McGrath S, Zhao X, Ozturk O, Katzenschlager S, Steele R, Benedetti A. metamedian: An R package for meta-analyzing studies reporting medians. *Research Synthesis Methods*. 2024; 15(2):332-346. doi:10.1002/jrsm.1686
+
+For a BibTeX citation, use: 
+
+```
+@article{mcgrath2024metamedian,
+  title={metamedian: An R package for meta-analyzing studies reporting medians},
+  author={McGrath, Sean and Zhao, XiaoFei and Ozturk, Omer and Katzenschlager, Stephan and Steele, Russell and Benedetti, Andrea},
+  journal={Research Synthesis Methods},
+  volume={15},
+  number={2},
+  pages={332--346},
+  year={2024},
+  publisher={Wiley Online Library}
+}
+```

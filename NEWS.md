@@ -1,7 +1,10 @@
 ## Package Updates
 
-### Changes in Version 1.1.1 (TBD)
+### Changes in Version 1.2.0 (TBD)
 
+-   Added the `metamedian_survival` function for meta-analyzing median
+    survival times
+-   Added the `dat.lung` data set
 -   Updated references
 
 ### Changes in Version 1.1.1 (2023-12-13)

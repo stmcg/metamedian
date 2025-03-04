@@ -208,3 +208,30 @@
 #' @references McGrath S., Zhao X., Steele R., Thombs B.D., Benedetti A., and the DEPRESsion Screening Data (DEPRESSD) Collaboration. (2020). Estimating the sample mean and standard deviation from commonly reported quantiles in meta-analysis. \emph{Statistical Methods in Medical Research}. \strong{29}(9):2520-2537.
 #'
 "dat.phq9"
+
+
+
+
+#' Example data set: Overall survival times in patients with lung cancer
+#'
+#' A data set based on a meta-analysis comparing overall survival times between individuals randomized to experimental arms and comparator arms in randomized trials for non-small cell lung cancer therapies (Iskander et al. 2024).
+#'
+#' @docType data
+#'
+#' @format A data frame with 30 rows and 11 columns:
+#' \tabular{ll}{
+#'   \code{study} \tab National Clinical Trial (NCT) number of the study. \cr
+#'   \code{n.g1} \tab number of subjects (experimental group). \cr
+#'   \code{med.g1} \tab median overall survival (experimental group). \cr
+#'   \code{med.ci.lb.g1} \tab lower confidence interval bound around the median (experimental group). \cr
+#'   \code{med.ci.ub.g1} \tab upper confidence interval bound around the median (experimental group). \cr
+#'   \code{med.ci.level.g1} \tab level of the confidence interval (experimental group). \cr
+#'   \code{n.g2} \tab number of subjects (comparator group). \cr
+#'   \code{med.g2} \tab median overall survival (comparator group). \cr
+#'   \code{med.ci.lb.g2} \tab lower confidence interval bound around the median (comparator group). \cr
+#'   \code{med.ci.ub.g2} \tab upper confidence interval bound around the median (comparator group). \cr
+#'   \code{med.ci.level.g2} \tab level of the confidence interval (comparator group). \cr}
+#'
+#' @references Iskander, R., Moyer, H., Fergusson, D., McGrath, S., Benedetti, A., and Kimmelman, J. (2024). The benefits and risks of receiving investigational solid tumor drugs in randomized trials: A systematic review and meta-analysis. \emph{Annals of Internal Medicine}. \strong{177}(6)759-767.
+#'
+"dat.lung"
