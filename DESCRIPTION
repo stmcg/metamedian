@@ -3,7 +3,7 @@ Type: Package
 Title: Meta-Analysis of Medians
 Version: 1.2.0
 Authors@R: c(person("Sean", "McGrath", role = c("aut", "cre"), 
-                     email = "sean.mcgrath@mail.mcgill.ca",
+                     email = "sean.mcgrath514@gmail.com",
                      comment = c(ORCID = "0000-0002-7281-3516")),
               person("XiaoFei", "Zhao", role = c("aut"),
                       email = "xiaofei.zhao@mail.mcgill.ca"),
