@@ -26,9 +26,10 @@ The `metamedian` package implements methods to meta-analyze studies that report 
 
 ### Median-Based Methods
 
-This package implements several methods to directly meta-analyze studies reporting sample medians. When the primary studies are one-group studies, the methods of [McGrath et al. (2019)](https://doi.org/10.1002/sim.8013) and [Ozturk and Balakrishnan (2020)](https://doi.org/10.1002/sim.8738) can be applied to estimate the pooled median. In the two-group context, the methods of [McGrath et al. (2020a)](https://doi.org/10.1002/bimj.201900036) can be applied to estimate the pooled difference of medians across groups. 
+This package implements several methods to directly meta-analyze studies reporting sample medians. When the primary studies are one-group studies, the methods of [McGrath et al. (2019)](https://doi.org/10.1002/sim.8013) and [Ozturk and Balakrishnan (2020)](https://doi.org/10.1002/sim.8738) can be applied to estimate the pooled median. In the two-group context, the methods of [McGrath et al. (2020a)](https://doi.org/10.1002/bimj.201900036) can be applied to estimate the pooled difference of medians between groups. 
 
-The package also implements methods to meta-analyze median survival times. The package can apply the Wald approximation-based approach (McGrath et al. 2025) to meta-analyze the median survival time, difference of median survival times across groups, and the ratio of median survival times across groups.
+The package also implements methods to meta-analyze median survival times. The package can apply the methods described by [McGrath et al. (2025)](
+https://doi.org/10.48550/arXiv.2503.03065) to meta-analyze the median survival time, difference of median survival times between groups, and the ratio of median survival times between groups.
 
 ### Mean-Based Methods
 

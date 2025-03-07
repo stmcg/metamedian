@@ -39,5 +39,5 @@ metamedian_survival(data = dat.lung, estimand = "ratio_median")
 
 }
 \references{
-McGrath S., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2025). Meta-analysis of median survival times with inverse-variance weighting. arXiv e-prints.
+McGrath S., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2025). Meta-analysis of median survival times with inverse-variance weighting. arXiv e-prints arXiv:2503.03065.
 }

@@ -30,8 +30,9 @@ Description: Implements several methods to meta-analyze studies that report the
     <doi:10.1177/09622802221139233>) are implemented to estimate 
     study-specific (difference of) means and their standard errors in order to 
     estimate the pooled (difference of) means. Methods for meta-analyzing median 
-    survival times are also implemented. See McGrath et al. (2024) 
-    <doi:10.1002/jrsm.1686> for a detailed guide on using the package.
+    survival times (McGrath et al. (2025) <doi:10.48550/arXiv.2503.03065>) are 
+    also implemented. See McGrath et al. (2024) <doi:10.1002/jrsm.1686> for a 
+    detailed guide on using the package.
 Imports:
     estmeansd,
     Hmisc,

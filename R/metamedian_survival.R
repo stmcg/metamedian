@@ -14,7 +14,7 @@
 #' @param ... optional arguments that are passed into the \code{\link[metafor]{rma.uni}} function for pooling. See documentation of \code{\link[metafor]{rma.uni}}.
 #'
 #' @return an object of class "rma.uni". For additional details, see \code{\link[metafor]{rma.uni}}.
-#' @references McGrath S., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2025). Meta-analysis of median survival times with inverse-variance weighting. arXiv e-prints.
+#' @references McGrath S., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2025). Meta-analysis of median survival times with inverse-variance weighting. arXiv e-prints arXiv:2503.03065.
 #'
 #' @examples
 #' ## Median survival in the comparator group
