@@ -51,8 +51,7 @@ methods:
   al. (2020b)](https://www.intlpress.com/site/pub/pages/journals/items/sii/content/vols/0013/0004/a009/)
 - [McGrath et al. (2020b)](https://doi.org/10.1177/0962280219889080)
 - [Cai et al. (2021)](https://doi.org/10.1177/09622802211047348)
-- [Yang et
-  al. (2022)](https://www.tandfonline.com/doi/full/10.1080/02664763.2021.1967890)
+- [Yang et al. (2022)](https://doi.org/10.1080/02664763.2021.1967890)
 - [McGrath et al. (2023)](https://doi.org/10.1177/09622802221139233)
 - [Shi et al. (2023)](https://doi.org/10.1177/09622802231172043)
 

@@ -1,7 +1,7 @@
 Package: metamedian
 Type: Package
 Title: Meta-Analysis of Medians
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: c(person("Sean", "McGrath", role = c("aut", "cre"), 
                      email = "sean.mcgrath514@gmail.com",
                      comment = c(ORCID = "0000-0002-7281-3516")),
@@ -17,7 +17,7 @@ Authors@R: c(person("Sean", "McGrath", role = c("aut", "cre"),
               person("Andrea", "Benedetti", role = c("aut"), 
                       email = "andrea.benedetti@mcgill.ca",
                       comment = c(ORCID = "0000-0002-8314-9497")))
-Maintainer: Sean McGrath <sean.mcgrath@mail.mcgill.ca>
+Maintainer: Sean McGrath <sean.mcgrath514@gmail.com>
 Description: Implements several methods to meta-analyze studies that report the 
     sample median of the outcome. The methods described by 
     McGrath et al. (2019) <doi:10.1002/sim.8013>, 
