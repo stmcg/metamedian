@@ -39,10 +39,8 @@ errors from studies reporting sample medians in order to estimate the
 pooled (difference of) means. Specifically, one can apply the following
 methods:
 
-- [Hozo et
-  al. (2005)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-5-13)
-- [Wan et
-  al. (2014)](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-14-135)
+- [Hozo et al. (2005)](https://doi.org/10.1186/1471-2288-5-13)
+- [Wan et al. (2014)](https://doi.org/10.1186/1471-2288-14-135)
 - [Bland
   (2015)](https://lifescienceglobal.com/pms/index.php/ijsmr/article/view/2688)
 - [Luo et al. (2018)](https://doi.org/10.1177/0962280216669183)
