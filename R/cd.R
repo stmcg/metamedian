@@ -22,7 +22,7 @@
 #' @param alpha.1 vector of the study-specific \eqn{\alpha_1} values from Ozturk and Balakrishnan (2020)
 #' @param alpha.2 vector of the study-specific \eqn{\alpha_2} values from Ozturk and Balakrishnan (2020)
 #' @param pooled.median.ci.level optional numeric scalar indicating the desired coverage probability for the pooled median estimate. The default is \code{0.95}.
-#' @param method character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.
+#' @param method character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) and \code{RE} (random effects). The default is \code{RE}.
 #' @param pool_studies logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.
 #'
 #' @return A list with components
@@ -75,8 +75,11 @@ cd <- function(q1, med, q3, n, mean, sd, med.var, med.ci.lb, med.ci.ub,
     df <- df[!na.row.indicator, ]
   }
 
+  n_studies <- nrow(df)
+  if (n_studies < 1L) {
+    stop("No studies with non-missing summary data.")
+  }
   alpha <- 1 - pooled.median.ci.level
-  n_studies <- length(med)
   yi <- vi <- rep(NA, length = n_studies)
 
   for (i in 1:n_studies){

@@ -1,5 +1,9 @@
 ## Package Updates
 
+### Changes in Version 1.2.2 (2026-04-18)
+
+-   Minor update to the documentation
+
 ### Changes in Version 1.2.1 (2025-03-18)
 
 -   Minor update to the documentation

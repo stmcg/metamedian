@@ -80,7 +80,7 @@ This function estimates the asymptotic sampling variance of either the (estimate
 \item S1: median, minimum and maximum values, and sample size
 \item S2: median, first and third quartiles, and sample size
 \item S3: median, minimum and maximum values, first and third quartiles, and sample size
-\item S4: mean, standard deivation, and sample size.
+\item S4: mean, standard deviation, and sample size.
  }.
 }
 \details{

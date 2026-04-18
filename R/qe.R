@@ -4,7 +4,7 @@
 #' \item S1: median, minimum and maximum values, and sample size
 #' \item S2: median, first and third quartiles, and sample size
 #' \item S3: median, minimum and maximum values, first and third quartiles, and sample size
-#' \item S4: mean, standard deivation, and sample size.
+#' \item S4: mean, standard deviation, and sample size.
 #'  }
 #' For one-group studies, the function estimates the pooled median. For two-group studies, the function estimates the pooled raw difference of medians across groups. The convention used for calculating differences in two-group studies is: value in group 1 minus value in group 2.
 #'

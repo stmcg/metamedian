@@ -28,8 +28,8 @@ applied to estimate the pooled difference of medians between groups.
 
 The package also implements methods to meta-analyze median survival
 times. The package can apply the methods described by [McGrath et
-al. (2025)](https://doi.org/10.48550/arXiv.2503.03065) to meta-analyze
-the median survival time, difference of median survival times between
+al. (2026)](https://doi.org/10.1002/sim.70533) to meta-analyze the
+median survival time, difference of median survival times between
 groups, and the ratio of median survival times between groups.
 
 ### Mean-Based Methods

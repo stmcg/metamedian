@@ -4,7 +4,7 @@
 #' \item S1: median, minimum and maximum values, and sample size
 #' \item S2: median, first and third quartiles, and sample size
 #' \item S3: median, minimum and maximum values, first and third quartiles, and sample size
-#' \item S4: mean, standard deivation, and sample size.
+#' \item S4: mean, standard deviation, and sample size.
 #'  }.
 #'
 #' In order to estimate the asymptotic sampling variance of the median (in S1, S2, or S3), one must have an estimate of the probability density function of the outcome evaluated at the population median. The \code{\link[estmeansd]{qe.fit}} function is applied to estimate the outcome distribution.

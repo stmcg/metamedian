@@ -4,7 +4,7 @@
 #' \item S1: median, minimum and maximum values, and sample size
 #' \item S2: median, first and third quartiles, and sample size
 #' \item S3: median, minimum and maximum values, first and third quartiles, and sample size
-#' \item S4: mean, standard deivation, and sample size.
+#' \item S4: mean, standard deviation, and sample size.
 #'  }
 #' This function estimates the study-specific means and their standard errors from the S1, S2, S3, or S4 summary data. When studies report S1, S2, or S3 summary data, a number of approaches can be applied to estimate the study-specific means and their standard errors. Then, this function estimates the pooled mean (for one-group studies) or the pooled difference of means (for two-group studies) based on the standard inverse variance method via the \code{\link[metafor]{rma.uni}} function. The convention used for calculating differences of means in two-group studies is: mean in group 1 minus mean in group 2.
 #'
@@ -24,7 +24,7 @@
 #' \code{'hozo/wan/bland'} \tab Method recommended by Wan et al. (2014), i.e., the method of Hozo et al. (2005) in scenario S1, method of Wan et al. (2014) in scenario S2, and method of Bland (2015) in scenario S3. \cr
 #' \code{'luo'} \tab Method of Luo et al. (2018). \cr
 #' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). \cr
-#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). \cr
+#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 2020). \cr
 #' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). \cr
 #' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). \cr
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. \cr}
@@ -35,10 +35,10 @@
 #' \code{'plugin'} \tab Uses the analytically derived standard error of the mean estimator, and plugs in the estimated standard deviation in place of the distributional standard deviation. This option is only available (and is the default option) when \code{mean_method} is set to \code{'yang'}. \cr}
 #' @param sd_method character string specifying the approach used to estimate the study-specific standard deviations when applying the naive standard error estimator (if applicable). The options are the following:
 #' \tabular{ll}{
-#' \code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'hozo/wan/bland/hozo'}.\cr
+#' \code{'wan'} \tab Method of Wan et al. (2014). This is the default option when \code{mean_method} is set to \code{'hozo/wan/bland'}.\cr
 #' \code{'wan/shi_normal'} \tab Method recommended by Shi et al. (2020a), i.e., the method of Wan et al. (2014) in scenarios S1 and S2 and the method of Shi et al. (2020a) in scenario S3. This is the default option when \code{mean_method} is set to \code{'luo'}. \cr
 #' \code{'shi_lognormal'} \tab Method of Shi et al. (2020b). This is the default option when \code{mean_method} is set to \code{'shi_lognormal'}. \cr
-#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 20220). This is the default option when \code{mean_method} is set to \code{'qe'}. \cr
+#' \code{'qe'} \tab Quantile Matching Estimation method (McGrath et al. 2020). This is the default option when \code{mean_method} is set to \code{'qe'}. \cr
 #' \code{'bc'} \tab Box-Cox method (McGrath et al. 2020). This is the default option when \code{mean_method} is set to \code{'bc'}. \cr
 #' \code{'mln'} \tab Method for Unknown Non-Normal Distributions (Cai et al. 2021). This is the default option when \code{mean_method} is set to \code{'mln'}. \cr
 #' \code{'yang'} \tab Method of Yang et al. (2022) under the assumption of normality. This is the default option when \code{mean_method} is set to \code{'yang'}. \cr}

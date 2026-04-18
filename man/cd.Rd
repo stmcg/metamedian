@@ -46,7 +46,7 @@ cd(
 
 \item{pooled.median.ci.level}{optional numeric scalar indicating the desired coverage probability for the pooled median estimate. The default is \code{0.95}.}
 
-\item{method}{character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) are \code{RE} (random effects). The default is \code{RE}.}
+\item{method}{character string specifying whether a fixed effect or random effects model is used. The options are \code{FE} (fixed effect) and \code{RE} (random effects). The default is \code{RE}.}
 
 \item{pool_studies}{logical scalar specifying whether to meta-analyze the studies. If this argument is set to \code{FALSE}, function will not meta-analyze the studies and will return a list with components \code{yi} containing the study-specific effect size estimates and \code{sei} containing the study-specific within-study standard error estimates. The default is \code{TRUE}.}
 }

@@ -25,7 +25,7 @@ For two group studies, this data frame can also contain the following columns fo
 an object of class "rma.uni". For additional details, see \code{\link[metafor]{rma.uni}}.
 }
 \description{
-This function implements the Wald approximation-based approach described by McGrath et al. (2025) to meta-analyze median survival times. This approach considers that each study reports a Kaplan-Meier estimate of median survival in (each group of) each study along with confidence intervals. This approach performs an inverse-variance weighted meta-analysis of the median survival time (for one group studies) or the difference/ratio of median survival times between groups (for two-group studies). The within-study standard errors are estimated by assuming the confidence intervals around the median survival estimates are Wald-type intervals.
+This function implements the Wald approximation-based approach described by McGrath et al. (2026) to meta-analyze median survival times. This approach considers that each study reports a Kaplan-Meier estimate of median survival in (each group of) each study along with confidence intervals. This approach performs an inverse-variance weighted meta-analysis of the median survival time (for one group studies) or the difference/ratio of median survival times between groups (for two-group studies). The within-study standard errors are estimated by assuming the confidence intervals around the median survival estimates are Wald-type intervals.
 }
 \examples{
 ## Median survival in the comparator group
@@ -39,5 +39,5 @@ metamedian_survival(data = dat.lung, estimand = "ratio_median")
 
 }
 \references{
-McGrath S., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2025). Meta-analysis of median survival times with inverse-variance weighting. arXiv e-prints arXiv:2503.03065.
+McGrath S., Yang C.H., Kimmelman J., Ozturk O., Steele R., and Benedetti A. (2026). Meta-analysis of median survival times with inverse-variance weighting. \emph{Statistics in Medicine}, \strong{45}, e70533.
 }
